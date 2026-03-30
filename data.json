@@ -1,0 +1,36 @@
+{
+  "collection": [
+    {
+      "id": "mk-001",
+      "inventory": "МК-001",
+      "title": "Горщик ліпний",
+      "shortDesc": "X–XI ст., слов'янська кераміка",
+      "section": "Археологічне минуле краю",
+      "material": "Глина",
+      "date": "X–XI ст.",
+      "dimensions": "Висота 18 см",
+      "origin": "Розкопки біля с. Іванівка",
+      "description": "Ліпний горщик з характерним орнаментом. Знахідка свідчить про осілість слов'янського населення на території краю.",
+      "model": "models/mk-001.glb",
+      "normalMap": "normalmaps/mk-001-normal.jpg",
+      "sketchfabUrl": "",
+      "photos": ["photos/mk-001-1.jpg", "photos/mk-001-2.jpg"]
+    },
+    {
+      "id": "mk-002",
+      "inventory": "МК-002",
+      "title": "Монета срібна",
+      "shortDesc": "XIV ст., литовська доба",
+      "section": "Польсько-литовська доба",
+      "material": "Срібло",
+      "date": "XIV ст.",
+      "dimensions": "Діаметр 2,1 см",
+      "origin": "Скарб біля м. Біла Церква",
+      "description": "Срібна монета з зображенням герба. Добре збереглася.",
+      "model": "models/mk-002.glb",
+      "normalMap": "normalmaps/mk-002-normal.jpg",
+      "sketchfabUrl": "",
+      "photos": ["photos/mk-002-1.jpg"]
+    }
+  ]
+}
