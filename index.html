@@ -29,35 +29,53 @@
     © Ваш Музей • Цифрова колекція
   </footer>
 
-  <script src="data.json"></script>
   <script src="assets/js/main.js"></script>
 
   <script>
-    window.onload = function() {
-      console.log("Завантажено експонатів:", window.collection ? window.collection.length : 0);
-      
-      if (window.collection && window.collection.length > 0) {
-        const grid = document.getElementById('exhibitsGrid');
-        grid.innerHTML = '';
-        
-        window.collection.forEach(item => {
-          const card = `
-            <div class="col">
-              <div class="card h-100 border-0 shadow-sm" onclick="showDetail('${item.id}')">
-                <img src="assets/${item.photos[0]}" class="card-img-top" style="height:280px; object-fit:cover;" alt="${item.title}">
-                <div class="card-body">
-                  <small class="text-muted">${item.inventory}</small>
-                  <h5 class="card-title mt-1">${item.title}</h5>
-                  <p class="card-text text-muted small">${item.shortDesc}</p>
-                </div>
-              </div>
-            </div>`;
-          grid.innerHTML += card;
-        });
-      } else {
-        document.getElementById('exhibitsGrid').innerHTML = '<div class="col"><div class="alert alert-warning">Експонати не завантажились. Перевір data.json</div></div>';
+    async function loadData() {
+      try {
+        const response = await fetch('data.json');
+        const data = await response.json();
+        window.collection = data.collection || [];
+        console.log("Завантажено експонатів:", window.collection.length);
+
+        renderExhibits(window.collection);
+      } catch (error) {
+        console.error("Помилка завантаження data.json:", error);
+        document.getElementById('exhibitsGrid').innerHTML = `
+          <div class="col-12">
+            <div class="alert alert-danger">Не вдалося завантажити дані. Перевірте data.json</div>
+          </div>`;
       }
-    };
+    }
+
+    function renderExhibits(data) {
+      const container = document.getElementById('exhibitsGrid');
+      container.innerHTML = '';
+
+      if (data.length === 0) {
+        container.innerHTML = '<div class="col"><div class="alert alert-warning">Експонати не знайдено</div></div>';
+        return;
+      }
+
+      data.forEach(item => {
+        const card = `
+          <div class="col">
+            <div class="card h-100 border-0 shadow-sm" onclick="showDetail('${item.id}')" style="cursor:pointer;">
+              <img src="assets/${item.photos[0]}" class="card-img-top" style="height:280px; object-fit:cover;" alt="${item.title}">
+              <div class="card-body">
+                <small class="text-muted">${item.inventory}</small>
+                <h5 class="card-title mt-1">${item.title}</h5>
+                <p class="card-text text-muted small">${item.shortDesc}</p>
+              </div>
+            </div>
+          </div>`;
+        container.innerHTML += card;
+      });
+    }
+
+    // Запуск при завантаженні сторінки
+    window.onload = loadData;
   </script>
 </body>
 </html>
