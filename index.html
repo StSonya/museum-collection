@@ -31,17 +31,16 @@
   </footer>
 
   <script>
-    // Дані прямо в коді (легко додавати нові експонати)
+    // Дані прямо в HTML — найнадійніший спосіб для GitHub Pages
     const collection = [
       {
         id: "cactus",
         inventory: "МК-001",
         title: "Кактус (тестовий експонат)",
-        shortDesc: "Тестовий об'єкт",
-        description: "Це тестовий експонат для перевірки роботи сайту.",
+        shortDesc: "Тестовий об'єкт для перевірки",
+        description: "Це тестовий експонат. Фото повинно відображатися.",
         photos: ["photos/Photo.png"]
       }
-      // Тут додаватимеш нові об'єкти
     ];
 
     function renderExhibits() {
@@ -51,8 +50,9 @@
       collection.forEach(item => {
         const card = `
           <div class="col">
-            <div class="card h-100 border-0 shadow-sm" style="cursor:pointer;" onclick="alert('Відкрито: ${item.title}\\n\\nЦе спрощена версія. Повне модальне вікно додамо пізніше.')">
-              <img src="assets/${item.photos[0]}" class="card-img-top" style="height:280px; object-fit:cover;" alt="${item.title}">
+            <div class="card h-100 border-0 shadow-sm" style="cursor:pointer;" 
+                 onclick="alert('Клік працює!\\n\\nНазва: ${item.title}\\n\\nЦе спрощена версія. Повне модальне вікно додамо пізніше.')">
+              <img src="assets/${item.photos[0]}" class="card-img-top" style="height: 280px; object-fit: cover;" alt="${item.title}">
               <div class="card-body">
                 <small class="text-muted">${item.inventory}</small>
                 <h5 class="card-title mt-1">${item.title}</h5>
