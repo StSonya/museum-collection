@@ -1,6 +1,25 @@
 {
   "collection": [
     {
+      "id": "cactus",
+      "inventory": "МК-001",
+      "title": "Кактус (тестовий експонат)",
+      "shortDesc": "Тестовий об'єкт для перевірки роботи 2.5D та 3D",
+      "section": "Археологічне минуле краю",
+      "material": "Глина",
+      "date": "Сучасність",
+      "dimensions": "Висота 15 см",
+      "origin": "Тестовий файл",
+      "description": "Це тестовий експонат для перевірки роботи сайту. Має 3D модель і карту нормалей.",
+      "model": "models/Cactus.glb",
+      "normalMap": "normalmaps/Cactus_u0_v0_normal.png",
+      "sketchfabUrl": "",
+      "photos": ["photos/Photo.png"]
+    }
+  ]
+}{
+  "collection": [
+    {
       "id": "mk-001",
       "inventory": "МК-001",
       "title": "Горщик ліпний",
