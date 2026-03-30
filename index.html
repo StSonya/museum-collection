@@ -33,14 +33,29 @@
   <script src="assets/js/main.js"></script>
 
   <script>
-    // Проста перевірка, що data.json завантажився
     window.onload = function() {
-      console.log("data.json завантажено:", window.collection);
+      console.log("Завантажено експонатів:", window.collection ? window.collection.length : 0);
+      
       if (window.collection && window.collection.length > 0) {
-        const container = document.getElementById('exhibitsGrid');
-        container.innerHTML = `<div class="col"><div class="alert alert-success">Знайдено ${window.collection.length} експонатів. Перевір консоль (F12).</div></div>`;
+        const grid = document.getElementById('exhibitsGrid');
+        grid.innerHTML = '';
+        
+        window.collection.forEach(item => {
+          const card = `
+            <div class="col">
+              <div class="card h-100 border-0 shadow-sm" onclick="showDetail('${item.id}')">
+                <img src="assets/${item.photos[0]}" class="card-img-top" style="height:280px; object-fit:cover;" alt="${item.title}">
+                <div class="card-body">
+                  <small class="text-muted">${item.inventory}</small>
+                  <h5 class="card-title mt-1">${item.title}</h5>
+                  <p class="card-text text-muted small">${item.shortDesc}</p>
+                </div>
+              </div>
+            </div>`;
+          grid.innerHTML += card;
+        });
       } else {
-        console.error("Помилка: collection порожній або не завантажився");
+        document.getElementById('exhibitsGrid').innerHTML = '<div class="col"><div class="alert alert-warning">Експонати не завантажились. Перевір data.json</div></div>';
       }
     };
   </script>
