@@ -31,7 +31,7 @@
   </footer>
 
   <script>
-    // Дані прямо в HTML — найнадійніший спосіб для GitHub Pages
+    // Дані експонатів
     const collection = [
       {
         id: "cactus",
@@ -50,8 +50,7 @@
       collection.forEach(item => {
         const card = `
           <div class="col">
-            <div class="card h-100 border-0 shadow-sm" style="cursor:pointer;" 
-                 onclick="alert('Клік працює!\\n\\nНазва: ${item.title}\\n\\nЦе спрощена версія. Повне модальне вікно додамо пізніше.')">
+            <div class="card h-100 border-0 shadow-sm" style="cursor:pointer;" onclick="alert('Клік працює!\\n\\nНазва: ${item.title}\\n\\nПовне модальне вікно додамо пізніше.')">
               <img src="assets/${item.photos[0]}" class="card-img-top" style="height: 280px; object-fit: cover;" alt="${item.title}">
               <div class="card-body">
                 <small class="text-muted">${item.inventory}</small>
@@ -64,6 +63,7 @@
       });
     }
 
+    // Запуск після завантаження сторінки
     window.onload = renderExhibits;
   </script>
 </body>
