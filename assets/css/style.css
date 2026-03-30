@@ -1,0 +1,41 @@
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.museum-name {
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+.nav-scroll {
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+.nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  transition: all 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.12) !important;
+}
+
+.mode-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255,255,255,0.9);
+  color: #333;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.modal-content {
+  border-radius: 12px;
+}
