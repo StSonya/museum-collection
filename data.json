@@ -4,52 +4,16 @@
       "id": "cactus",
       "inventory": "МК-001",
       "title": "Кактус (тестовий експонат)",
-      "shortDesc": "Тестовий об'єкт для перевірки роботи 2.5D та 3D",
+      "shortDesc": "Тестовий об'єкт для перевірки 2.5D та 3D",
       "section": "Археологічне минуле краю",
       "material": "Глина",
       "date": "Сучасність",
       "dimensions": "Висота 15 см",
-      "origin": "Тестовий файл",
-      "description": "Це тестовий експонат для перевірки роботи сайту. Має 3D модель і карту нормалей.",
+      "origin": "Тест",
+      "description": "Це тестовий експонат. Перевірка роботи фото, нормалей та 3D моделі.",
       "model": "models/Cactus.glb",
       "normalMap": "normalmaps/Cactus_u0_v0_normal.png",
-      "sketchfabUrl": "",
       "photos": ["photos/Photo.png"]
-    }
-  ]
-}{
-  "collection": [
-    {
-      "id": "mk-001",
-      "inventory": "МК-001",
-      "title": "Горщик ліпний",
-      "shortDesc": "X–XI ст., слов'янська кераміка",
-      "section": "Археологічне минуле краю",
-      "material": "Глина",
-      "date": "X–XI ст.",
-      "dimensions": "Висота 18 см",
-      "origin": "Розкопки біля с. Іванівка",
-      "description": "Ліпний горщик з характерним орнаментом. Знахідка свідчить про осілість слов'янського населення на території краю.",
-      "model": "models/mk-001.glb",
-      "normalMap": "normalmaps/mk-001-normal.jpg",
-      "sketchfabUrl": "",
-      "photos": ["photos/mk-001-1.jpg", "photos/mk-001-2.jpg"]
-    },
-    {
-      "id": "mk-002",
-      "inventory": "МК-002",
-      "title": "Монета срібна",
-      "shortDesc": "XIV ст., литовська доба",
-      "section": "Польсько-литовська доба",
-      "material": "Срібло",
-      "date": "XIV ст.",
-      "dimensions": "Діаметр 2,1 см",
-      "origin": "Скарб біля м. Біла Церква",
-      "description": "Срібна монета з зображенням герба. Добре збереглася.",
-      "model": "models/mk-002.glb",
-      "normalMap": "normalmaps/mk-002-normal.jpg",
-      "sketchfabUrl": "",
-      "photos": ["photos/mk-002-1.jpg"]
     }
   ]
 }
