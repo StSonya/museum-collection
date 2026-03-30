@@ -7,7 +7,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/main.js"></script>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.2.0/model-viewer.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="bg-light">
@@ -30,15 +31,51 @@
     © Ваш Музей • Цифрова колекція
   </footer>
 
+  <script src="data.json"></script>
   <script>
+    let currentItem = null;
+
+    function showDetail(id) {
+      currentItem = window.collection.find(item => item.id === id);
+      if (!currentItem) return;
+
+      let modalHTML = `
+        <div class="modal fade" id="detailModal" tabindex="-1">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">${currentItem.title}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <div class="alert alert-info">ID: ${currentItem.id} | Фото: assets/${currentItem.photos[0]}</div>
+                <p><strong>Матеріал:</strong> ${currentItem.material}</p>
+                <p><strong>Дата:</strong> ${currentItem.date}</p>
+                <hr>
+                <p>${currentItem.description}</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+
+      const old = document.getElementById('detailModal');
+      if (old) old.remove();
+
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+      new bootstrap.Modal(document.getElementById('detailModal')).show();
+    }
+
     window.onload = function() {
+      const grid = document.getElementById('exhibitsGrid');
+      grid.innerHTML = '';
+
       if (!window.collection || window.collection.length === 0) {
-        document.getElementById('exhibitsGrid').innerHTML = '<div class="col-12"><div class="alert alert-warning">Експонати не завантажились</div></div>';
+        grid.innerHTML = '<div class="col-12"><div class="alert alert-warning">Експонати не завантажились</div></div>';
         return;
       }
-
-      const container = document.getElementById('exhibitsGrid');
-      container.innerHTML = '';
 
       window.collection.forEach(item => {
         const card = `
@@ -52,7 +89,7 @@
               </div>
             </div>
           </div>`;
-        container.innerHTML += card;
+        grid.innerHTML += card;
       });
     };
   </script>
