@@ -5,58 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Цифрова колекція</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body class="bg-light p-4">
-
-  <h1 class="text-center mb-4">Експозиція</h1>
-  
-  <div id="status" class="alert alert-info text-center">Завантаження data.json...</div>
-
-  <script>
-    async function testLoad() {
-      const status = document.getElementById('status');
-      
-      try {
-        status.textContent = "Спроба завантажити data.json...";
-        
-        const response = await fetch('data.json', { 
-          cache: 'no-store',
-          headers: { 'Cache-Control': 'no-cache' }
-        });
-        
-        status.innerHTML = `Статус відповіді: <strong>${response.status}</strong> ${response.statusText}`;
-
-        const text = await response.text();
-        status.innerHTML += `<br><br>Перші 300 символів файлу:<br><pre style="background:#f8f8f8;padding:10px;font-size:12px;">${text.substring(0, 300)}</pre>`;
-
-        if (text.includes('"collection"')) {
-          const data = JSON.parse(text);
-          window.collection = data.collection || [];
-          
-          status.className = "alert alert-success";
-          status.innerHTML += `<br><br>Успішно! Завантажено ${window.collection.length} експонатів.`;
-        }
-      } catch (err) {
-        status.className = "alert alert-danger";
-        status.innerHTML = `Помилка: ${err.message}<br><br>Спробуйте оновити сторінку ще раз (Ctrl + Shift + R)`;
-      }
-    }
-
-    window.onload = testLoad;
-  </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="uk">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Цифрова колекція</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.2.0/model-viewer.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="bg-light">
@@ -72,63 +22,36 @@
 
   <div class="container py-5">
     <h1 class="fw-light text-center mb-5">Експозиція</h1>
-    <div id="exhibitsGrid" class="row row-cols-1 row-cols-md-3 g-4"></div>
+    
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="exhibitsGrid"></div>
   </div>
 
   <footer class="bg-white border-top py-4 text-center text-muted small">
     © Ваш Музей • Цифрова колекція
   </footer>
 
-  <script src="data.json"></script>
   <script>
-    let currentItem = null;
+    // Дані прямо в коді (легко додавати нові експонати)
+    const collection = [
+      {
+        id: "cactus",
+        inventory: "МК-001",
+        title: "Кактус (тестовий експонат)",
+        shortDesc: "Тестовий об'єкт",
+        description: "Це тестовий експонат для перевірки роботи сайту.",
+        photos: ["photos/Photo.png"]
+      }
+      // Тут додаватимеш нові об'єкти
+    ];
 
-    function showDetail(id) {
-      currentItem = window.collection.find(item => item.id === id);
-      if (!currentItem) return;
-
-      let modalHTML = `
-        <div class="modal fade" id="detailModal" tabindex="-1">
-          <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">${currentItem.title}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-              </div>
-              <div class="modal-body">
-                <div class="alert alert-info">ID: ${currentItem.id} | Фото: assets/${currentItem.photos[0]}</div>
-                <p><strong>Матеріал:</strong> ${currentItem.material}</p>
-                <p><strong>Дата:</strong> ${currentItem.date}</p>
-                <hr>
-                <p>${currentItem.description}</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
-              </div>
-            </div>
-          </div>
-        </div>`;
-
-      const old = document.getElementById('detailModal');
-      if (old) old.remove();
-
-      document.body.insertAdjacentHTML('beforeend', modalHTML);
-      new bootstrap.Modal(document.getElementById('detailModal')).show();
-    }
-
-    window.onload = function() {
+    function renderExhibits() {
       const grid = document.getElementById('exhibitsGrid');
       grid.innerHTML = '';
 
-      if (!window.collection || window.collection.length === 0) {
-        grid.innerHTML = '<div class="col-12"><div class="alert alert-warning">Експонати не завантажились</div></div>';
-        return;
-      }
-
-      window.collection.forEach(item => {
+      collection.forEach(item => {
         const card = `
           <div class="col">
-            <div class="card h-100 border-0 shadow-sm" onclick="showDetail('${item.id}')" style="cursor:pointer;">
+            <div class="card h-100 border-0 shadow-sm" style="cursor:pointer;" onclick="alert('Відкрито: ${item.title}\\n\\nЦе спрощена версія. Повне модальне вікно додамо пізніше.')">
               <img src="assets/${item.photos[0]}" class="card-img-top" style="height:280px; object-fit:cover;" alt="${item.title}">
               <div class="card-body">
                 <small class="text-muted">${item.inventory}</small>
@@ -139,7 +62,9 @@
           </div>`;
         grid.innerHTML += card;
       });
-    };
+    }
+
+    window.onload = renderExhibits;
   </script>
 </body>
 </html>
