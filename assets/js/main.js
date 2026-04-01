@@ -20,6 +20,7 @@ function showDetail(id) {
               <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume">Об’єм</a></li>
             </ul>
             <div class="tab-content">
+              <!-- Опис -->
               <div class="tab-pane fade show active" id="tab-desc">
                 <p><strong>Інвентарний номер:</strong> ${currentItem.inventory}</p>
                 <p><strong>Матеріал:</strong> ${currentItem.material}</p>
@@ -30,12 +31,15 @@ function showDetail(id) {
                 <hr>
                 <p>${currentItem.description}</p>
               </div>
+              <!-- Фото -->
               <div class="tab-pane fade" id="tab-photo">
                 <img src="assets/${currentItem.photos[0]}" class="img-fluid rounded" alt="${currentItem.title}">
               </div>
+              <!-- Світло (нормалі) -->
               <div class="tab-pane fade" id="tab-light">
                 <canvas id="normalCanvas" width="900" height="520" style="width:100%; background:#111;"></canvas>
               </div>
+              <!-- Об’єм -->
               <div class="tab-pane fade" id="tab-volume">
                 ${currentItem.model ? 
                   `<model-viewer src="assets/${currentItem.model}" style="width:100%; height:520px;" camera-controls auto-rotate shadow-intensity="1"></model-viewer>` : 
@@ -68,7 +72,7 @@ function showDetail(id) {
 function initNormalMap(item) {
   const canvas = document.getElementById('normalCanvas');
   if (!canvas || !item.normalMap) {
-    canvas.innerHTML = '<p class="text-muted text-center mt-5">Карта нормалей відсутня</p>';
+    canvas.innerHTML = '<p class="text-muted text-center mt-5">Карта нормалей відсутня або не завантажилася</p>';
     return;
   }
 
