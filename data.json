@@ -1,19 +1,22 @@
 {
   "collection": [
     {
-      "id": "cactus",
+      "id": "exp-001",
       "inventory": "МК-001",
-      "title": "Кактус (тестовий експонат)",
-      "shortDesc": "Тестовий об'єкт для перевірки 2.5D та 3D",
+      "title": "Горщик ліпний",
+      "shortDesc": "X–XI ст., слов'янська кераміка",
       "section": "Археологічне минуле краю",
-      "material": "Глина",
-      "date": "Сучасність",
-      "dimensions": "Висота 15 см",
-      "origin": "Тест",
-      "description": "Це тестовий експонат. Перевірка роботи фото, нормалей та 3D моделі.",
-      "model": "models/Cactus.glb",
-      "normalMap": "normalmaps/Cactus_u0_v0_normal.png",
-      "photos": ["photos/Photo.png"]
+
+      "material": "Глина, ліпна техніка",
+      "date": "X–XI ст.",
+      "dimensions": "Висота 18 см, діаметр 15 см",
+      "origin": "Розкопки біля с. Іванівка, 2018 р.",
+      "description": "Ліпний горщик з характерним орнаментом. Знахідка свідчить про раннє слов'янське заселення території.",
+
+      "photos": ["photos/exp-001.jpg"],
+      "model": "models/exp-001.glb",
+      "normalMap": "normalmaps/exp-001-normal.png",
+      "sketchfabUrl": ""                  // якщо є ембед зі Sketchfab
     }
   ]
 }
