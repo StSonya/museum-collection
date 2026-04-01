@@ -9,21 +9,18 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.2.0/model-viewer.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="bg-light">
 
   <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
     <div class="container">
       <span class="museum-name text-muted fs-5">Назва музею</span>
-      <div class="ms-auto">
-        <a href="catalog.html" class="btn btn-outline-dark btn-sm">Весь каталог</a>
-      </div>
     </div>
   </nav>
 
   <div class="container py-5">
     <h1 class="fw-light text-center mb-5">Експозиція</h1>
+    
     <div id="exhibitsGrid" class="row row-cols-1 row-cols-md-3 g-4"></div>
   </div>
 
@@ -31,7 +28,159 @@
     © Ваш Музей • Цифрова колекція
   </footer>
 
-  <script src="data.json"></script>
-  <script src="assets/js/main.js"></script>
+  <script>
+    // === Дані експонату (можна додавати більше) ===
+    const collection = [
+      {
+        id: "exp-001",
+        inventory: "МК-001",
+        title: "Горщик ліпний",
+        shortDesc: "X–XI ст., слов'янська кераміка",
+        material: "Глина",
+        technique: "Ліплення від руки",
+        date: "X–XI ст.",
+        dimensions: "Висота 18 см, діаметр 15 см",
+        origin: "Розкопки біля с. Іванівка, 2018 р.",
+        description: "Ліпний горщик з характерним орнаментом. Типовий зразок ранньослов'янської кераміки.",
+        photos: ["photos/Photo.png"],
+        model: "models/Cactus.glb",
+        normalMap: "normalmaps/Cactus_u0_v0_normal.png"
+      }
+    ];
+
+    function showDetail(id) {
+      const item = collection.find(i => i.id === id);
+      if (!item) return;
+
+      let modalHTML = `
+        <div class="modal fade" id="detailModal" tabindex="-1">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">${item.title}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <ul class="nav nav-tabs mb-3" id="modalTabs">
+                  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Фото</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-light">Світло</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume">Об’єм</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="tab-desc">
+                    <p><strong>Інвентарний номер:</strong> ${item.inventory}</p>
+                    <p><strong>Матеріал:</strong> ${item.material}</p>
+                    <p><strong>Техніка:</strong> ${item.technique || '—'}</p>
+                    <p><strong>Дата:</strong> ${item.date}</p>
+                    <p><strong>Розміри:</strong> ${item.dimensions}</p>
+                    <p><strong>Походження:</strong> ${item.origin}</p>
+                    <hr>
+                    <p>${item.description}</p>
+                  </div>
+                  <div class="tab-pane fade" id="tab-photo">
+                    <img src="assets/${item.photos[0]}" class="img-fluid rounded" alt="${item.title}">
+                  </div>
+                  <div class="tab-pane fade" id="tab-light">
+                    <canvas id="normalCanvas" width="900" height="520" style="width:100%; background:#111; border-radius:8px;"></canvas>
+                  </div>
+                  <div class="tab-pane fade" id="tab-volume">
+                    ${item.model ? 
+                      `<model-viewer src="assets/${item.model}" style="width:100%; height:520px;" camera-controls auto-rotate shadow-intensity="1"></model-viewer>` : 
+                      '<p class="text-muted">3D-модель відсутня</p>'
+                    }
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+
+      // Видаляємо старий модал
+      const old = document.getElementById('detailModal');
+      if (old) old.remove();
+
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+      new bootstrap.Modal(document.getElementById('detailModal')).show();
+
+      // Ініціалізація нормалей після відкриття вкладки "Світло"
+      setTimeout(() => {
+        const lightTab = document.querySelector('a[href="#tab-light"]');
+        if (lightTab) {
+          lightTab.addEventListener('shown.bs.tab', () => initNormalMap(item), { once: true });
+        }
+      }, 300);
+    }
+
+    function initNormalMap(item) {
+      const canvas = document.getElementById('normalCanvas');
+      if (!canvas || !item.normalMap) {
+        canvas.innerHTML = '<p class="text-muted text-center mt-5">Карта нормалей відсутня</p>';
+        return;
+      }
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(50, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+
+      const loader = new THREE.TextureLoader();
+      loader.load(`assets/${item.normalMap}`, texture => {
+        const material = new THREE.MeshStandardMaterial({
+          color: 0xeeeeee,
+          normalMap: texture,
+          normalScale: new THREE.Vector2(2.8, 2.8)
+        });
+        const mesh = new THREE.Mesh(new THREE.PlaneGeometry(14, 14), material);
+        scene.add(mesh);
+
+        const light = new THREE.PointLight(0xffffff, 4);
+        light.position.set(5, 5, 12);
+        scene.add(light);
+        scene.add(new THREE.AmbientLight(0xaaaaaa, 0.7));
+
+        camera.position.z = 13;
+
+        function animate() {
+          requestAnimationFrame(animate);
+          mesh.rotation.y += 0.0006;
+          renderer.render(scene, camera);
+        }
+        animate();
+
+        canvas.addEventListener('mousemove', e => {
+          const rect = canvas.getBoundingClientRect();
+          light.position.x = ((e.clientX - rect.left) / rect.width) * 20 - 10;
+          light.position.y = -((e.clientY - rect.top) / rect.height) * 18 + 9;
+        });
+      });
+    }
+
+    // Рендер карток
+    function renderExhibits() {
+      const grid = document.getElementById('exhibitsGrid');
+      grid.innerHTML = '';
+
+      collection.forEach(item => {
+        const card = `
+          <div class="col">
+            <div class="card h-100 border-0 shadow-sm" style="cursor:pointer;" onclick="showDetail('${item.id}')">
+              <img src="assets/${item.photos[0]}" class="card-img-top" style="height: 280px; object-fit: cover;" alt="${item.title}">
+              <div class="card-body">
+                <small class="text-muted">${item.inventory}</small>
+                <h5 class="card-title mt-1">${item.title}</h5>
+                <p class="card-text text-muted small">${item.shortDesc}</p>
+              </div>
+            </div>
+          </div>`;
+        grid.innerHTML += card;
+      });
+    }
+
+    window.onload = renderExhibits;
+  </script>
 </body>
 </html>
