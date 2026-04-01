@@ -5,18 +5,15 @@
       "inventory": "МК-001",
       "title": "Горщик ліпний",
       "shortDesc": "X–XI ст., слов'янська кераміка",
-      "section": "Археологічне минуле краю",
-
-      "material": "Глина, ліпна техніка",
+      "material": "Глина",
+      "technique": "Ліплення від руки",
       "date": "X–XI ст.",
       "dimensions": "Висота 18 см, діаметр 15 см",
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
-      "description": "Ліпний горщик з характерним орнаментом. Знахідка свідчить про раннє слов'янське заселення території.",
-
-      "photos": ["photos/exp-001.jpg"],
-      "model": "models/exp-001.glb",
-      "normalMap": "normalmaps/exp-001-normal.png",
-      "sketchfabUrl": ""                  // якщо є ембед зі Sketchfab
+      "description": "Ліпний горщик з характерним орнаментом.",
+      "photos": ["photos/Photo.png"],
+      "model": "models/Cactus.glb",
+      "normalMap": "normalmaps/Cactus_u0_v0_normal.png"
     }
   ]
 }
