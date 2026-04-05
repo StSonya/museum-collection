@@ -14,7 +14,7 @@
     
     <div class="row justify-content-center">
       <div class="col-md-4">
-        <div class="card shadow-sm" style="cursor:pointer;" onclick="showDetail()">
+        <div class="card shadow-sm" style="cursor: pointer;" onclick="showDetail()">
           <img src="assets/photos/Photo.png" class="card-img-top" style="height: 320px; object-fit: cover;">
           <div class="card-body text-center">
             <small class="text-muted">МК-001</small>
@@ -28,47 +28,31 @@
 
   <script>
     function showDetail() {
-      const modalHTML = `
-        <div class="modal fade show" id="detailModal" style="display: block; background: rgba(0,0,0,0.6);">
+      alert("Клік працює! Зараз відкриється модальне вікно.");
+
+      const html = `
+        <div class="modal fade show" style="display: block; background: rgba(0,0,0,0.7); z-index: 9999;">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Горщик ліпний</h5>
-                <button type="button" class="btn-close" onclick="document.getElementById('detailModal').remove()"></button>
+                <button type="button" class="btn-close" onclick="this.closest('.modal').remove()"></button>
               </div>
               <div class="modal-body">
-                <ul class="nav nav-tabs mb-3">
-                  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#desc">Опис</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#photo">Фото</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#volume">Об’єм</a></li>
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane fade show active" id="desc">
-                    <p><strong>Інвентарний номер:</strong> МК-001</p>
-                    <p><strong>Матеріал:</strong> Глина</p>
-                    <p><strong>Дата:</strong> X–XI ст.</p>
-                    <p>Ліпний горщик з характерним орнаментом.</p>
-                  </div>
-                  <div class="tab-pane fade" id="photo">
-                    <img src="assets/photos/Photo.png" class="img-fluid rounded">
-                  </div>
-                  <div class="tab-pane fade" id="volume">
-                    <p class="text-center mt-5">Вкладка Об’єм (поки порожня)</p>
-                  </div>
-                </div>
+                <p><strong>Інвентарний номер:</strong> МК-001</p>
+                <p><strong>Матеріал:</strong> Глина</p>
+                <p><strong>Дата:</strong> X–XI ст.</p>
+                <hr>
+                <img src="assets/photos/Photo.png" class="img-fluid rounded">
               </div>
               <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="document.getElementById('detailModal').remove()">Закрити</button>
+                <button class="btn btn-secondary" onclick="this.closest('.modal').remove()">Закрити</button>
               </div>
             </div>
           </div>
         </div>`;
 
-      // Видаляємо старий модал, якщо є
-      const old = document.getElementById('detailModal');
-      if (old) old.remove();
-
-      document.body.insertAdjacentHTML('beforeend', modalHTML);
+      document.body.insertAdjacentHTML('beforeend', html);
     }
   </script>
 </body>
