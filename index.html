@@ -50,4 +50,44 @@
               <div class="modal-body">
                 <ul class="nav nav-tabs mb-3">
                   <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Фото</a></
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Фото</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume">Об’єм</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="tab-desc">
+                    <p><strong>Інвентарний номер:</strong> МК-001</p>
+                    <p><strong>Матеріал:</strong> Глина</p>
+                    <p><strong>Техніка:</strong> Ліплення від руки</p>
+                    <p><strong>Дата:</strong> X–XI ст.</p>
+                    <p><strong>Розміри:</strong> Висота 18 см, діаметр 15 см</p>
+                    <p><strong>Походження:</strong> Розкопки біля с. Іванівка, 2018 р.</p>
+                    <hr>
+                    <p>Ліпний горщик з характерним орнаментом. Типовий зразок ранньослов'янської кераміки.</p>
+                  </div>
+                  <div class="tab-pane fade" id="tab-photo">
+                    <img src="assets/photos/Photo.png" class="img-fluid rounded" alt="Горщик ліпний">
+                  </div>
+                  <div class="tab-pane fade" id="tab-volume" style="height:520px;">
+                    <iframe title="3D модель" frameborder="0" allowfullscreen 
+                      src="https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed" 
+                      style="width:100%; height:100%; border:none;">
+                    </iframe>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+
+      const old = document.getElementById('detailModal');
+      if (old) old.remove();
+
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+      new bootstrap.Modal(document.getElementById('detailModal')).show();
+    }
+  </script>
+</body>
+</html>
