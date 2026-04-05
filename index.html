@@ -125,4 +125,21 @@
         mesh.position.sub(center);
         
         const size = geometry.boundingBox.getSize(new THREE.Vector3());
-        const maxDim = Math.max(size
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const scale = 8 / maxDim;
+        mesh.scale.set(scale, scale, scale);
+
+        scene.add(mesh);
+        camera.position.z = 15;
+
+        function animate() {
+          requestAnimationFrame(animate);
+          mesh.rotation.y += 0.003;
+          renderer.render(scene, camera);
+        }
+        animate();
+      });
+    }
+  </script>
+</body>
+</html>
