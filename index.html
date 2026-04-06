@@ -57,46 +57,41 @@
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-sources">Джерела</a></li>
                 </ul>
                 <div class="tab-content">
-                  <!-- Опис -->
                   <div class="tab-pane fade show active" id="tab-desc">
                     <table class="table table-borderless">
-                      <tr><td><strong>Інвентарний номер:</strong></td><td>МК-001</td></tr>
-                      <tr><td><strong>Назва:</strong></td><td>Горщик ліпний</td></tr>
-                      <tr><td><strong>Дата створення:</strong></td><td>X–XI ст.</td></tr>
-                      <tr><td><strong>Період / культура:</strong></td><td>Ранньослов'янська культура</td></tr>
-                      <tr><td><strong>Матеріал:</strong></td><td>Глина</td></tr>
-                      <tr><td><strong>Техніка виготовлення:</strong></td><td>Ліплення від руки</td></tr>
-                      <tr><td><strong>Розміри:</strong></td><td>Висота 18 см, діаметр 15 см</td></tr>
-                      <tr><td><strong>Місце знахідки:</strong></td><td>с. Іванівка, розкопки 2018 р.</td></tr>
-                      <tr><td><strong>Зберігач:</strong></td><td>Краєзнавчий музей</td></tr>
-                      <tr><td><strong>Стан збереження:</strong></td><td>Добрий</td></tr>
+                      ${createField("Інвентарний номер", "МК-001")}
+                      ${createField("Назва", "Горщик ліпний")}
+                      ${createField("Дата створення", "X–XI ст.")}
+                      ${createField("Період / культура", "Ранньослов'янська культура")}
+                      ${createField("Матеріал", "Глина")}
+                      ${createField("Техніка виготовлення", "Ліплення від руки")}
+                      ${createField("Розміри", "Висота 18 см, діаметр 15 см")}
+                      ${createField("Вага", "")}
+                      ${createField("Місце знахідки", "с. Іванівка, розкопки 2018 р.")}
+                      ${createField("Зберігач", "Краєзнавчий музей")}
+                      ${createField("Стан збереження", "Добрий")}
                     </table>
                     <hr>
                     <p><strong>Опис:</strong> Ліпний горщик з характерним орнаментом. Типовий зразок ранньослов'янської кераміки.</p>
                   </div>
 
-                  <!-- Фото -->
                   <div class="tab-pane fade" id="tab-photo">
                     <img src="assets/photos/Photo.png" class="img-fluid rounded" alt="Горщик ліпний">
                   </div>
 
-                  <!-- Нормалі -->
                   <div class="tab-pane fade" id="tab-normal">
                     <img src="assets/normalmaps/Cactus_u0_v0_normal.png" class="img-fluid rounded" alt="Карта нормалей">
                   </div>
 
-                  <!-- Об’єм -->
                   <div class="tab-pane fade" id="tab-volume" style="height:520px;">
                     <iframe src="https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed" 
                             style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
                   </div>
 
-                  <!-- Консервація -->
                   <div class="tab-pane fade" id="tab-conservation">
                     <p>Інформація про консервацію буде тут.</p>
                   </div>
 
-                  <!-- Джерела -->
                   <div class="tab-pane fade" id="tab-sources">
                     <p>Джерела та література будуть тут.</p>
                   </div>
@@ -114,6 +109,12 @@
 
       document.body.insertAdjacentHTML('beforeend', modalHTML);
       new bootstrap.Modal(document.getElementById('detailModal')).show();
+    }
+
+    // Динамічне створення поля — показується тільки якщо є значення
+    function createField(label, value) {
+      if (!value || value.trim() === "") return "";
+      return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
     }
   </script>
 </body>
