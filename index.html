@@ -54,25 +54,31 @@
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume">Об’єм</a></li>
                 </ul>
                 <div class="tab-content">
+                  <!-- Динамічний музейний опис -->
                   <div class="tab-pane fade show active" id="tab-desc">
                     <table class="table table-borderless">
                       ${createField("Інвентарний номер", "МК-001")}
                       ${createField("Назва", "Горщик ліпний")}
+                      ${createField("Альтернативна / народна назва", "")}
                       ${createField("Дата створення", "X–XI ст.")}
                       ${createField("Період / культура", "Ранньослов'янська культура")}
                       ${createField("Матеріал", "Глина")}
                       ${createField("Техніка виготовлення", "Ліплення від руки")}
                       ${createField("Розміри", "Висота 18 см, діаметр 15 см")}
-                      ${createField("Місце знахідки", "с. Іванівка, розкопки 2018 р.")}
+                      ${createField("Вага", "")}
+                      ${createField("Місце знахідки / збирання", "с. Іванівка, розкопки 2018 р.")}
+                      ${createField("Автор / майстер", "")}
                       ${createField("Зберігач", "Краєзнавчий музей")}
                       ${createField("Стан збереження", "Добрий")}
                     </table>
                     <hr>
                     <p><strong>Опис:</strong> Ліпний горщик з характерним орнаментом. Типовий зразок ранньослов'янської кераміки. Має сліди копчення на зовнішній поверхні.</p>
                   </div>
+
                   <div class="tab-pane fade" id="tab-photo">
                     <img src="assets/photos/Photo.png" class="img-fluid rounded" alt="Горщик ліпний">
                   </div>
+
                   <div class="tab-pane fade" id="tab-volume" style="height:520px;">
                     <iframe src="https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed" 
                             style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
@@ -93,6 +99,7 @@
       new bootstrap.Modal(document.getElementById('detailModal')).show();
     }
 
+    // Динамічне створення рядка (поле з’являється тільки якщо є значення)
     function createField(label, value) {
       if (!value || value.trim() === "") return "";
       return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
