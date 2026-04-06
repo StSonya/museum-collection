@@ -1,6 +1,107 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Цифрова експозиція</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
+    <div class="container">
+      <span class="museum-name text-muted fs-5">Назва музею</span>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    <h1 class="fw-light text-center mb-5">Експозиція</h1>
+    
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm" style="cursor:pointer;" onclick="showDetail()">
+          <img src="assets/photos/Photo.png" class="card-img-top" style="height: 320px; object-fit: cover;" alt="Горщик ліпний">
+          <div class="card-body text-center">
+            <small class="text-muted">МК-001</small>
+            <h5 class="card-title mt-2">Горщик ліпний</h5>
+            <p class="card-text text-muted small">X–XI ст., слов'янська кераміка</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-white border-top py-4 text-center text-muted small">
+    © Ваш Музей • Цифрова колекція
+  </footer>
+
+  <script>
+    function showDetail() {
+      let modalHTML = `
+        <div class="modal fade" id="detailModal" tabindex="-1">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Горщик ліпний</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <ul class="nav nav-tabs mb-3">
+                  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Фото</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume">Об’єм</a></li>
+                </ul>
+                <div class="tab-content">
+                  <!-- Повний музейний опис -->
+                  <div class="tab-pane fade show active" id="tab-desc">
+                    <table class="table table-borderless">
+                      <tr><td><strong>Інвентарний номер:</strong></td><td>МК-001</td></tr>
+                      <tr><td><strong>Назва:</strong></td><td>Горщик ліпний</td></tr>
+                      <tr><td><strong>Дата створення:</strong></td><td>X–XI ст.</td></tr>
+                      <tr><td><strong>Період / культура:</strong></td><td>Ранньослов'янська культура</td></tr>
+                      <tr><td><strong>Матеріал:</strong></td><td>Глина</td></tr>
+                      <tr><td><strong>Техніка виготовлення:</strong></td><td>Ліплення від руки</td></tr>
+                      <tr><td><strong>Розміри:</strong></td><td>Висота 18 см, діаметр 15 см</td></tr>
+                      <tr><td><strong>Місце знахідки:</strong></td><td>с. Іванівка, розкопки 2018 р.</td></tr>
+                      <tr><td><strong>Зберігач:</strong></td><td>Краєзнавчий музей</td></tr>
+                      <tr><td><strong>Стан збереження:</strong></td><td>Добрий</td></tr>
+                      <tr><td><strong>Автор / виробник:</strong></td><td>невідомий</td></tr>
+                    </table>
+                    <hr>
+                    <p><strong>Опис:</strong> Ліпний горщик з характерним орнаментом. Типовий зразок ранньослов'янської кераміки. Має сліди копчення на зовнішній поверхні.</p>
+                  </div>
+
+                  <div class="tab-pane fade" id="tab-photo">
+                    <img src="assets/photos/Photo.png" class="img-fluid rounded" alt="Горщик ліпний">
+                  </div>
+
+                  <div class="tab-pane fade" id="tab-volume" style="height:520px;">
+                    <iframe src="https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed" 
+                            style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
+
+      const old = document.getElementById('detailModal');
+      if (old) old.remove();
+
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+      new bootstrap.Modal(document.getElementById('detailModal')).show();
+    }
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIGICURE — Цифрова експозиція</title>
