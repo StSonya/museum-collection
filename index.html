@@ -5,182 +5,215 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIGICURE — Цифрова експозиція</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/STLLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
-    
     <style>
         .modal { animation: modalPop 0.3s ease; }
         @keyframes modalPop { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        #stl-container { width: 100%; height: 520px; background: #111827; border-radius: 16px; }
     </style>
 </head>
 <body class="bg-zinc-950 text-white font-sans">
 
-    <!-- ... (та сама навігація та герой, як у попередній версії) ... -->
+    <!-- Навігація -->
+    <nav class="bg-black border-b border-zinc-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-4xl">📸</span>
+                <div>
+                    <h1 class="text-3xl font-bold tracking-tight">DIGICURE</h1>
+                    <p class="text-zinc-400 text-sm -mt-1">Цифрова експозиція</p>
+                </div>
+            </div>
+            <a href="https://github.com/ВАШ_ЮЗЕРНЕЙМ/digicure-exhibition" target="_blank" 
+               class="text-zinc-400 hover:text-white flex items-center gap-2 text-sm">
+                <span>Редагувати на GitHub</span>
+                <span class="text-xl">↗</span>
+            </a>
+        </div>
+    </nav>
 
-    <!-- Галерея залишається такою ж -->
+    <!-- Герой -->
+    <header class="bg-gradient-to-br from-zinc-900 to-black py-16 text-center">
+        <div class="max-w-4xl mx-auto px-6">
+            <h1 class="text-5xl md:text-6xl font-bold mb-4">Роботи студентів курсу DIGICURE</h1>
+            <p class="text-2xl text-zinc-400">Фотограмметрія та RTI — інтерактивна експозиція</p>
+        </div>
+    </header>
 
-    <!-- Модальне вікно (оновлене) -->
+    <!-- Фільтри -->
+    <div class="max-w-7xl mx-auto px-6 py-8 border-b border-zinc-800">
+        <div id="filters" class="flex flex-wrap gap-3 justify-center">
+            <button data-filter="all" class="filter-btn active px-8 py-3 rounded-3xl text-lg font-medium bg-white text-zinc-950">Всі моделі</button>
+            <button data-filter="photogrammetry" class="filter-btn px-8 py-3 rounded-3xl text-lg font-medium border border-zinc-700 hover:border-white">Фотограмметрія</button>
+            <button data-filter="rti" class="filter-btn px-8 py-3 rounded-3xl text-lg font-medium border border-zinc-700 hover:border-white">RTI</button>
+        </div>
+    </div>
+
+    <!-- Галерея -->
+    <div id="gallery" class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Заповнюється JavaScript -->
+    </div>
+
+    <!-- Модальне вікно -->
     <div id="modal" class="hidden fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4">
-        <div class="bg-zinc-900 rounded-3xl w-full max-w-5xl max-h-[92vh] flex flex-col modal shadow-2xl overflow-hidden">
+        <div class="bg-zinc-900 rounded-3xl w-full max-w-5xl max-h-[92vh] flex flex-col modal shadow-2xl">
+            <!-- Заголовок модального вікна -->
             <div class="px-8 py-6 border-b border-zinc-700 flex items-center justify-between">
                 <div>
                     <h2 id="modal-title" class="text-3xl font-semibold"></h2>
                     <p id="modal-author" class="text-zinc-400"></p>
                 </div>
-                <button onclick="closeModal()" class="text-5xl leading-none text-zinc-400 hover:text-white">×</button>
+                <button onclick="closeModal()" class="text-5xl leading-none text-zinc-400 hover:text-white transition-colors">×</button>
             </div>
             
-            <div class="flex border-b border-zinc-700">
-                <button onclick="switchTab(0)" id="tab0" class="tab-btn flex-1 py-4 font-medium border-b-2 border-transparent hover:text-white">Опис</button>
-                <button onclick="switchTab(1)" id="tab1" class="tab-btn flex-1 py-4 font-medium border-b-2 border-transparent hover:text-white">3D-модель</button>
-            </div>
-
+            <!-- Вміст -->
             <div class="flex-1 p-8 overflow-auto">
-                <!-- Вкладка Опис -->
-                <div id="tab-content-0">
-                    <p id="modal-description" class="text-zinc-300 text-lg"></p>
-                </div>
-                
-                <!-- Вкладка 3D -->
-                <div id="tab-content-1" class="hidden">
-                    <div id="stl-container"></div>
-                    <p class="text-xs text-zinc-500 mt-3 text-center">
-                        Миша — обертання • Колесо — масштаб • Правий клік — панорамування
-                    </p>
-                </div>
+                <p id="modal-description" class="text-zinc-300 text-lg mb-8"></p>
+                <div id="modal-viewer" class="w-full"></div>
             </div>
         </div>
     </div>
 
     <script>
         // ==================== ДАНІ МОДЕЛЕЙ ====================
+        // Студенти просто додають сюди нові об'єкти!
         const models = [
             {
                 id: 1,
-                title: "Горщик ліпний",
-                author: "Ім'я студента",
-                type: "photogrammetry",           // або "rti"
-                description: "X–XI ст., слов’янська кераміка. MK-001",
-                // Для Sketchfab
-                sketchfabEmbedSrc: null,
-                // Для STL (пряме посилання на raw файл)
-                stlUrl: "https://raw.githubusercontent.com/ВАШ_ЮЗЕРНЕЙМ/digicure-exhibition/main/models/gorshyk.stl",
-                thumbnail: "https://via.placeholder.com/600x400/1e2937/64748b?text=Горщик+ліпний"
+                title: "Приклад: Антична статуя",
+                author: "Іван Петренко",
+                type: "photogrammetry",
+                sketchfabEmbedSrc: "https://sketchfab.com/models/8d913bda48f84217902e6829982c494f/embed?autostart=1&preload=1&ui_hint=2",
+                thumbnail: "https://via.placeholder.com/600x400/1e2937/64748b?text=Фотограмметрія+1",
+                description: "3D-модель, створена методом фотограмметрії. Деталізована статуя з музею."
+            },
+            {
+                id: 2,
+                title: "Приклад: Монета XVII ст.",
+                author: "Марія Сидоренко",
+                type: "rti",
+                thumbnail: "https://via.placeholder.com/600x400/1e2937/64748b?text=RTI+1",
+                description: "Reflectance Transformation Imaging. Показує мікрорельєф поверхні під різним освітленням.",
+                rtiImages: [
+                    "https://via.placeholder.com/800x600/334155/fff?text=RTI+Знімок+1",
+                    "https://via.placeholder.com/800x600/334155/fff?text=RTI+Знімок+2"
+                ]
             }
-            // Додавай нові об'єкти...
+            // Додайте свої моделі нижче за цим прикладом ↑
+            // {
+            //     id: 3,
+            //     title: "Назва вашої моделі",
+            //     author: "Ім'я студента",
+            //     type: "photogrammetry",   // або "rti"
+            //     sketchfabEmbedSrc: "https://sketchfab.com/models/ВАШ_ID/embed?autostart=1&preload=1&ui_hint=2",
+            //     thumbnail: "https://... (URL мініатюри)",
+            //     description: "Короткий опис...",
+            //     rtiImages: ["url1", "url2"]   // тільки для RTI
+            // }
         ];
 
-        let currentModel = null;
-        let scene, camera, renderer, controls;
+        // ==================== РЕНДЕР ГАЛЕРЕЇ ====================
+        let currentFilter = 'all';
 
-        function renderGallery(filteredModels) { /* той самий код, що був раніше */ }
+        function renderGallery(filteredModels) {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+
+            filteredModels.forEach(model => {
+                const cardHTML = `
+                    <div class="group bg-zinc-900 rounded-3xl overflow-hidden cursor-pointer hover:shadow-2xl hover:-translate-y-1 transition-all">
+                        <div class="relative">
+                            <img src="${model.thumbnail}" alt="${model.title}" class="w-full aspect-video object-cover">
+                            <div class="absolute top-4 right-4 px-4 py-1 text-xs font-semibold rounded-3xl ${model.type === 'photogrammetry' ? 'bg-blue-600' : 'bg-amber-600'}">
+                                ${model.type === 'photogrammetry' ? 'Фотограмметрія' : 'RTI'}
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold mb-1">${model.title}</h3>
+                            <p class="text-zinc-400 mb-6">${model.author}</p>
+                            <div class="text-sm bg-white text-zinc-950 py-3 text-center rounded-2xl font-medium group-hover:bg-zinc-200 transition-colors">
+                                Переглянути модель
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                const card = document.createElement('div');
+                card.innerHTML = cardHTML;
+                card.addEventListener('click', () => openModal(model.id));
+                gallery.appendChild(card);
+            });
+
+            if (filteredModels.length === 0) {
+                gallery.innerHTML = `<p class="col-span-full text-center py-20 text-zinc-400 text-xl">Моделей за цим фільтром поки немає</p>`;
+            }
+        }
+
+        // ==================== ФІЛЬТРИ ====================
+        function setupFilters() {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // знімаємо активний клас з усіх
+                    buttons.forEach(b => b.classList.remove('active', 'bg-white', 'text-zinc-950'));
+                    // додаємо активний
+                    btn.classList.add('active', 'bg-white', 'text-zinc-950');
+
+                    currentFilter = btn.dataset.filter;
+
+                    const filtered = currentFilter === 'all' 
+                        ? models 
+                        : models.filter(m => m.type === currentFilter);
+                    
+                    renderGallery(filtered);
+                });
+            });
+        }
 
         // ==================== МОДАЛЬНЕ ВІКНО ====================
         function openModal(id) {
-            currentModel = models.find(m => m.id === id);
-            if (!currentModel) return;
+            const model = models.find(m => m.id === id);
+            if (!model) return;
 
-            document.getElementById('modal-title').textContent = currentModel.title;
-            document.getElementById('modal-author').textContent = currentModel.author;
-            document.getElementById('modal-description').innerHTML = `<p>${currentModel.description}</p>`;
+            document.getElementById('modal-title').textContent = model.title;
+            document.getElementById('modal-author').textContent = model.author;
+            document.getElementById('modal-description').innerHTML = `<p>${model.description}</p>`;
 
-            switchTab(0); // за замовчуванням відкриваємо вкладку Опис
+            const viewer = document.getElementById('modal-viewer');
+            viewer.innerHTML = '';
+
+            if (model.type === 'photogrammetry' && model.sketchfabEmbedSrc) {
+                viewer.innerHTML = `
+                    <iframe src="${model.sketchfabEmbedSrc}" 
+                            style="width:100%; height:520px; border:none;" 
+                            allowfullscreen 
+                            allow="autoplay; fullscreen; xr-spatial-tracking"></iframe>`;
+            } else if (model.type === 'rti') {
+                let html = `<p class="text-zinc-400 mb-6">Інтерактивна RTI-модель. Зображення демонструють поверхню під різним освітленням.</p>`;
+                if (model.rtiImages && model.rtiImages.length > 0) {
+                    html += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">`;
+                    model.rtiImages.forEach(url => {
+                        html += `<img src="${url}" class="rounded-2xl shadow-inner" alt="RTI">`;
+                    });
+                    html += `</div>`;
+                } else {
+                    html += `<p class="italic text-amber-300">Додайте масив rtiImages у код, щоб показувати знімки RTI.</p>`;
+                }
+                viewer.innerHTML = html;
+            }
+
             document.getElementById('modal').classList.remove('hidden');
             document.getElementById('modal').classList.add('flex');
         }
 
-        function switchTab(tabIndex) {
-            document.querySelectorAll('.tab-btn').forEach((btn, i) => {
-                btn.classList.toggle('border-blue-500', i === tabIndex);
-                btn.classList.toggle('text-white', i === tabIndex);
-            });
-
-            document.getElementById('tab-content-0').classList.toggle('hidden', tabIndex !== 0);
-            document.getElementById('tab-content-1').classList.toggle('hidden', tabIndex !== 1);
-
-            if (tabIndex === 1 && currentModel.stlUrl) {
-                setTimeout(initSTLViewer, 100); // невелика затримка для рендеру
-            }
-        }
-
-        function initSTLViewer() {
-            const container = document.getElementById('stl-container');
-            container.innerHTML = ''; // очищаємо попередній
-
-            // Scene setup
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x111827);
-
-            camera = new THREE.PerspectiveCamera(50, container.clientWidth / 520, 0.1, 1000);
-            camera.position.set(0, 0, 150);
-
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(container.clientWidth, 520);
-            container.appendChild(renderer.domElement);
-
-            // Lights
-            const ambient = new THREE.AmbientLight(0xffffff, 0.6);
-            scene.add(ambient);
-            const directional = new THREE.DirectionalLight(0xffffff, 1);
-            directional.position.set(50, 100, 50);
-            scene.add(directional);
-
-            // Controls
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-
-            // Завантаження STL
-            const loader = new THREE.STLLoader();
-            loader.load(currentModel.stlUrl, geometry => {
-                const material = new THREE.MeshPhongMaterial({ 
-                    color: 0xaaaaaa, 
-                    specular: 0x111111, 
-                    shininess: 5 
-                });
-                const mesh = new THREE.Mesh(geometry, material);
-                
-                // Центруємо та масштабуємо модель
-                geometry.computeBoundingBox();
-                const center = geometry.boundingBox.getCenter(new THREE.Vector3());
-                mesh.position.sub(center);
-                
-                const size = geometry.boundingBox.getSize(new THREE.Vector3());
-                const maxDim = Math.max(size.x, size.y, size.z);
-                const scale = 80 / maxDim;
-                mesh.scale.set(scale, scale, scale);
-
-                scene.add(mesh);
-            });
-
-            function animate() {
-                requestAnimationFrame(animate);
-                controls.update();
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            // Resize
-            window.addEventListener('resize', () => {
-                if (renderer) {
-                    renderer.setSize(container.clientWidth, 520);
-                    camera.aspect = container.clientWidth / 520;
-                    camera.updateProjectionMatrix();
-                }
-            });
-        }
-
         function closeModal() {
-            document.getElementById('modal').classList.add('hidden');
-            document.getElementById('modal').classList.remove('flex');
-            // очищаємо three.js щоб не залишалося в пам'яті
-            if (renderer) renderer.dispose();
+            const modal = document.getElementById('modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
 
         // ==================== ЗАПУСК ====================
         document.addEventListener('DOMContentLoaded', () => {
-            // ... setupFilters() і renderGallery() як раніше ...
+            setupFilters();
+            renderGallery(models); // початковий рендер
         });
     </script>
 </body>
