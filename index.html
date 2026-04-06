@@ -16,6 +16,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3 sticky-top">
     <div class="container">
       <span class="museum-name text-muted fs-5">Назва музею</span>
+      
       <div class="d-flex align-items-center gap-3 ms-auto">
         <input type="text" id="searchInput" class="form-control" placeholder="Пошук за назвою або інвентарним номером..." style="width: 340px;">
         <a href="https://твій-музей-сайт.ua" class="btn btn-outline-secondary" target="_blank">На головну</a>
@@ -25,11 +26,15 @@
 
   <div class="container py-5">
     <h1 class="fw-light text-center mb-5">Експозиція</h1>
-    <div id="exhibitsGrid" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4"></div>
+    
+    <!-- Відцентрована стрічка -->
+    <div id="exhibitsGrid" class="row justify-content-center g-4"></div>
 
     <div class="text-center mt-5">
       <button id="loadMoreBtn" class="btn btn-primary btn-lg px-5">Показати ще</button>
     </div>
+
+    <div id="pagination" class="d-flex justify-content-center gap-3 mt-4"></div>
   </div>
 
   <footer class="bg-white border-top py-4 text-center text-muted small">
@@ -43,7 +48,7 @@
     const itemsPerPage = 12;
 
     async function loadData() {
-      const res = await fetch('data.json?' + new Date().getTime()); // примусовий кеш-брейк
+      const res = await fetch('data.json?' + new Date().getTime());
       const data = await res.json();
       allItems = data.collection || [];
       filteredItems = [...allItems];
@@ -62,7 +67,7 @@
         const photo = item.photos && item.photos[0] ? item.photos[0] : 'assets/photos/Photo.png';
         
         const cardHTML = `
-          <div class="col">
+          <div class="col-12 col-md-6 col-lg-4 col-xl-3">
             <div class="card border-0 shadow-sm h-100" style="cursor:pointer;" onclick="showDetail('${item.id}')">
               <img src="${photo}" class="card-img-top" style="height: 260px; object-fit: cover;" alt="${item.title}">
               <div class="card-body text-center">
@@ -75,24 +80,110 @@
         grid.insertAdjacentHTML('beforeend', cardHTML);
       });
 
+      updatePagination();
       document.getElementById('loadMoreBtn').style.display = (end < filteredItems.length) ? 'inline-block' : 'none';
     }
+
+    function updatePagination() {
+      const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+      let html = '';
+      if (totalPages > 1) {
+        html += `<button class="btn btn-outline-secondary px-4" onclick="prevPage()" ${currentPage===1?'disabled':''}>Попередні</button>`;
+        html += `<span class="align-self-center mx-4 fw-medium">Сторінка ${currentPage} з ${totalPages}</span>`;
+        html += `<button class="btn btn-outline-secondary px-4" onclick="nextPage()" ${currentPage===totalPages?'disabled':''}>Наступні</button>`;
+      }
+      document.getElementById('pagination').innerHTML = html;
+    }
+
+    window.prevPage = () => { if (currentPage > 1) { currentPage--; render(); } };
+    window.nextPage = () => { if (currentPage < Math.ceil(filteredItems.length / itemsPerPage)) { currentPage++; render(); } };
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase().trim();
+      filteredItems = allItems.filter(item => 
+        item.title.toLowerCase().includes(term) || 
+        (item.inventory && item.inventory.toLowerCase().includes(term))
+      );
+      currentPage = 1;
+      render();
+    });
+
+    document.getElementById('loadMoreBtn').addEventListener('click', () => {
+      currentPage++;
+      render();
+    });
 
     window.showDetail = function(id) {
       const item = allItems.find(i => i.id === id);
       if (!item) return;
 
       const photoPath = item.photos && item.photos[0] ? item.photos[0] : 'assets/photos/Photo.png';
-      const normalPath = item.normalMap || '';
+      const normalPath = item.normalMap || 'assets/normalmaps/Cactus_u0_v0_normal.png';
 
-      let modalHTML = `... (твій повний модальний код) ...`; // я можу вставити повний, якщо потрібно
+      let modalHTML = `
+        <div class="modal fade" id="detailModal" tabindex="-1">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">${item.title}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <ul class="nav nav-tabs mb-3">
+                  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Фото</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-normal">Нормалі</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-form">Форма</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-object">Об'єкт</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-conservation">Консервація</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-sources">Джерела</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="tab-desc">
+                    <table class="table table-borderless">
+                      <tr><td><strong>Інвентарний номер:</strong></td><td>${item.inventory}</td></tr>
+                      <tr><td><strong>Назва:</strong></td><td>${item.title}</td></tr>
+                      <tr><td><strong>Дата створення:</strong></td><td>${item.date || ''}</td></tr>
+                      <tr><td><strong>Період / культура:</strong></td><td>Ранньослов'янська культура</td></tr>
+                      <tr><td><strong>Матеріал:</strong></td><td>${item.material || ''}</td></tr>
+                      <tr><td><strong>Техніка виготовлення:</strong></td><td>${item.technique || ''}</td></tr>
+                      <tr><td><strong>Розміри:</strong></td><td>${item.dimensions || ''}</td></tr>
+                      <tr><td><strong>Місце знахідки:</strong></td><td>${item.origin || ''}</td></tr>
+                      <tr><td><strong>Зберігач:</strong></td><td>Краєзнавчий музей</td></tr>
+                      <tr><td><strong>Стан збереження:</strong></td><td>Добрий</td></tr>
+                    </table>
+                    <hr>
+                    <p><strong>Опис:</strong> ${item.description || '—'}</p>
+                  </div>
+                  <div class="tab-pane fade" id="tab-photo">
+                    <img src="${photoPath}" class="img-fluid rounded" alt="${item.title}">
+                  </div>
+                  <div class="tab-pane fade" id="tab-normal">
+                    <img src="${normalPath}" class="img-fluid rounded" alt="Карта нормалей">
+                  </div>
+                  <div class="tab-pane fade" id="tab-form">
+                    <p class="text-center mt-5 text-muted">Тут буде проста 3D-модель</p>
+                  </div>
+                  <div class="tab-pane fade" id="tab-object" style="height:520px;">
+                    <iframe src="https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed" 
+                            style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
+                  </div>
+                  <div class="tab-pane fade" id="tab-conservation"><p>Інформація про консервацію буде тут.</p></div>
+                  <div class="tab-pane fade" id="tab-sources"><p>Джерела та література будуть тут.</p></div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+              </div>
+            </div>
+          </div>
+        </div>`;
 
-      // Тимчасово для діагностики
-      console.log("Item data:", item);
-      console.log("Photo path:", photoPath);
-      console.log("Normal path:", normalPath);
+      const old = document.getElementById('detailModal');
+      if (old) old.remove();
 
-      alert("Модальне відкрито. Перевір консоль (F12) — там видно шляхи.");
+      document.body.insertAdjacentHTML('beforeend', modalHTML);
+      new bootstrap.Modal(document.getElementById('detailModal')).show();
     };
 
     window.onload = loadData;
