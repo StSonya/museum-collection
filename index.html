@@ -18,7 +18,8 @@
       box-shadow: 0 15px 30px rgba(0,0,0,0.12)!important;
     }
     .card-img-top {
-      height: 280px;
+      width: 100%;
+      aspect-ratio: 1 / 1;           /* Квадратне фото */
       object-fit: cover;
     }
     .museum-name { font-size: 1.1rem; }
@@ -125,7 +126,6 @@
       render();
     });
 
-    // Стабільне модальне вікно
     window.showDetail = function(id) {
       const item = allItems.find(i => i.id === id);
       if (!item) return;
@@ -175,7 +175,7 @@
                     <img src="${normalPath}" class="img-fluid rounded" alt="Карта нормалей">
                   </div>
                   <div class="tab-pane fade" id="tab-form">
-                    <p class="text-center text-muted mt-5">Тут буде проста 3D-модель (STL)</p>
+                    <p class="text-center mt-5 text-muted">Тут буде проста 3D-модель (STL)</p>
                   </div>
                   <div class="tab-pane fade" id="tab-object" style="height:520px;">
                     <iframe src="https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed" 
