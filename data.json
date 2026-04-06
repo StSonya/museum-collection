@@ -10,10 +10,9 @@
       "date": "X–XI ст.",
       "dimensions": "Висота 18 см, діаметр 15 см",
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
-      "description": "Ліпний горщик з характерним орнаментом.",
-      "photos": ["photos/Photo.png"],
-      "model": "models/Cactus.glb",
-      "normalMap": "normalmaps/Cactus_u0_v0_normal.png"
+      "description": "Ліпний горщик з характерним орнаментом. Типовий зразок ранньослов'янської кераміки.",
+      "photos": ["assets/photos/Photo.png"],
+      "normalMap": "assets/normalmaps/Cactus_u0_v0_normal.png"
     }
   ]
 }
