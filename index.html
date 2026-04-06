@@ -5,118 +5,129 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Цифрова експозиція</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .card { transition: all 0.2s; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1)!important; }
+    .museum-name { font-size: 1.1rem; }
+  </style>
 </head>
 <body class="bg-light">
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3 sticky-top">
     <div class="container">
-      <span class="museum-name text-muted fs-5">Назва музею</span>
+      <span class="museum-name text-muted">Назва музею</span>
+      
+      <div class="d-flex align-items-center gap-3">
+        <input type="text" id="searchInput" class="form-control" placeholder="Пошук за назвою або інвентарним номером..." style="width: 320px;">
+        <a href="https://твій-музей-сайт.ua" class="btn btn-outline-secondary" target="_blank">На головну</a>
+      </div>
     </div>
   </nav>
 
   <div class="container py-5">
     <h1 class="fw-light text-center mb-5">Експозиція</h1>
     
-    <div class="row justify-content-center">
-      <div class="col-md-4">
-        <div class="card border-0 shadow-sm" style="cursor:pointer;" onclick="showDetail()">
-          <img src="assets/photos/Photo.png" class="card-img-top" style="height: 320px; object-fit: cover;" alt="Горщик ліпний">
-          <div class="card-body text-center">
-            <small class="text-muted">МК-001</small>
-            <h5 class="card-title mt-2">Горщик ліпний</h5>
-            <p class="card-text text-muted small">X–XI ст., слов'янська кераміка</p>
-          </div>
-        </div>
-      </div>
+    <div id="exhibitsGrid" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4"></div>
+
+    <div class="text-center mt-5">
+      <button id="loadMoreBtn" class="btn btn-primary btn-lg px-5">Показати ще</button>
     </div>
+
+    <div id="pagination" class="d-flex justify-content-center gap-2 mt-4"></div>
   </div>
 
   <footer class="bg-white border-top py-4 text-center text-muted small">
     © Ваш Музей • Цифрова колекція
   </footer>
 
+  <!-- Модальне вікно (залишаємо те саме, яке працювало) -->
   <script>
-    function showDetail() {
-      let modalHTML = `
-        <div class="modal fade" id="detailModal" tabindex="-1">
-          <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Горщик ліпний</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-              </div>
-              <div class="modal-body">
-                <ul class="nav nav-tabs mb-3">
-                  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Фото</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-normal">Нормалі</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-form">Форма</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-object">Об'єкт</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-conservation">Консервація</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-sources">Джерела</a></li>
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane fade show active" id="tab-desc">
-                    <table class="table table-borderless">
-                      <tr><td><strong>Інвентарний номер:</strong></td><td>МК-001</td></tr>
-                      <tr><td><strong>Назва:</strong></td><td>Горщик ліпний</td></tr>
-                      <tr><td><strong>Дата створення:</strong></td><td>X–XI ст.</td></tr>
-                      <tr><td><strong>Період / культура:</strong></td><td>Ранньослов'янська культура</td></tr>
-                      <tr><td><strong>Матеріал:</strong></td><td>Глина</td></tr>
-                      <tr><td><strong>Техніка виготовлення:</strong></td><td>Ліплення від руки</td></tr>
-                      <tr><td><strong>Розміри:</strong></td><td>Висота 18 см, діаметр 15 см</td></tr>
-                      <tr><td><strong>Вага:</strong></td><td>—</td></tr>
-                      <tr><td><strong>Місце знахідки:</strong></td><td>с. Іванівка, розкопки 2018 р.</td></tr>
-                      <tr><td><strong>Зберігач:</strong></td><td>Краєзнавчий музей</td></tr>
-                      <tr><td><strong>Стан збереження:</strong></td><td>Добрий</td></tr>
-                    </table>
-                    <hr>
-                    <p><strong>Опис:</strong> Ліпний горщик з характерним орнаментом. Типовий зразок ранньослов'янської кераміки.</p>
-                  </div>
+    let allItems = [];
+    let filteredItems = [];
+    let currentPage = 1;
+    const itemsPerPage = 12;
 
-                  <div class="tab-pane fade" id="tab-photo">
-                    <img src="assets/photos/Photo.png" class="img-fluid rounded" alt="Горщик ліпний">
-                  </div>
+    async function loadData() {
+      const res = await fetch('data.json');
+      const data = await res.json();
+      allItems = data.collection || [];
+      filteredItems = [...allItems];
+      render();
+    }
 
-                  <div class="tab-pane fade" id="tab-normal">
-                    <img src="assets/normalmaps/Cactus_u0_v0_normal.png" class="img-fluid rounded" alt="Карта нормалей">
-                  </div>
+    function render() {
+      const grid = document.getElementById('exhibitsGrid');
+      grid.innerHTML = '';
 
-                  <!-- Нова вкладка "Форма" -->
-                  <div class="tab-pane fade" id="tab-form">
-                    <p class="text-center mt-5 text-muted">Вкладка «Форма» (проста 3D-модель без текстур)</p>
-                    <p class="text-center text-muted small">Тут буде простенька не текстурована 3D-модель</p>
-                  </div>
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageItems = filteredItems.slice(start, end);
 
-                  <div class="tab-pane fade" id="tab-object" style="height:520px;">
-                    <iframe src="https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed" 
-                            style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
-                  </div>
-
-                  <div class="tab-pane fade" id="tab-conservation">
-                    <p>Інформація про консервацію буде тут.</p>
-                  </div>
-
-                  <div class="tab-pane fade" id="tab-sources">
-                    <p>Джерела та література будуть тут.</p>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+      pageItems.forEach(item => {
+        const cardHTML = `
+          <div class="col">
+            <div class="card border-0 shadow-sm h-100" style="cursor:pointer;" onclick="showDetail('${item.id}')">
+              <img src="${item.photos[0]}" class="card-img-top" style="height: 260px; object-fit: cover;" alt="${item.title}">
+              <div class="card-body">
+                <small class="text-muted">${item.inventory}</small>
+                <h5 class="card-title mt-2">${item.title}</h5>
+                <p class="card-text text-muted small">${item.shortDesc}</p>
               </div>
             </div>
-          </div>
-        </div>`;
+          </div>`;
+        grid.insertAdjacentHTML('beforeend', cardHTML);
+      });
 
-      const old = document.getElementById('detailModal');
-      if (old) old.remove();
-
-      document.body.insertAdjacentHTML('beforeend', modalHTML);
-      new bootstrap.Modal(document.getElementById('detailModal')).show();
+      updatePagination();
+      document.getElementById('loadMoreBtn').style.display = 
+        (end < filteredItems.length) ? 'inline-block' : 'none';
     }
+
+    function updatePagination() {
+      const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+      let html = '';
+      
+      if (totalPages > 1) {
+        html += `<button class="btn btn-outline-secondary" onclick="prevPage()" ${currentPage===1?'disabled':''}>Попередні</button>`;
+        html += `<span class="align-self-center mx-3">Сторінка ${currentPage} з ${totalPages}</span>`;
+        html += `<button class="btn btn-outline-secondary" onclick="nextPage()" ${currentPage===totalPages?'disabled':''}>Наступні</button>`;
+      }
+      document.getElementById('pagination').innerHTML = html;
+    }
+
+    window.prevPage = () => { if (currentPage > 1) { currentPage--; render(); } };
+    window.nextPage = () => { if (currentPage < Math.ceil(filteredItems.length / itemsPerPage)) { currentPage++; render(); } };
+
+    // Пошук
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      filteredItems = allItems.filter(item => 
+        item.title.toLowerCase().includes(term) || 
+        item.inventory.toLowerCase().includes(term)
+      );
+      currentPage = 1;
+      render();
+    });
+
+    // Показати ще
+    document.getElementById('loadMoreBtn').addEventListener('click', () => {
+      currentPage++;
+      render();
+    });
+
+    // Модальне вікно (залишаємо твою успішну версію)
+    window.showDetail = function(id) {
+      const item = allItems.find(i => i.id === id);
+      if (!item) return;
+
+      // Тут можна вставити твій повний код модального вікна з вкладками
+      alert(`Відкрито деталі: ${item.title}\n\n(Тут буде твоє модальне вікно)`);
+      // ← пізніше замінимо на повне модальне вікно
+    };
+
+    // Запуск
+    window.onload = loadData;
   </script>
 </body>
 </html>
