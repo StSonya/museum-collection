@@ -132,7 +132,7 @@
 
       const photoPath = item.photos && item.photos[0] ? item.photos[0] : 'assets/photos/Photo.png';
       const normalPath = item.normalMap || 'assets/normalmaps/Cactus_u0_v0_normal.png';
-      const stlPath = 'assets/models/Cactus.stl';   // ← твій файл
+      const stlPath = item.stl || 'assets/models/Cactus.stl';   // ← твій файл
 
       let modalHTML = `
         <div class="modal fade" id="detailModal" tabindex="-1">
