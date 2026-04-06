@@ -13,7 +13,6 @@
       "description": "Ліпний горщик з характерним орнаментом. Типовий зразок ранньослов'янської кераміки.",
       "photos": ["assets/photos/Photo.png"],
       "normalMap": "assets/normalmaps/Cactus_u0_v0_normal.png"
-      "stl": "assets/models/Cactus.stl"
     }
   ]
 }
