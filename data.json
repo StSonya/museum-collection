@@ -16,9 +16,15 @@
       "conservator": "Краєзнавчий музей",
       "condition": "Добрий",
       "description": "Ліпний горщик з характерним орнаментом. Типовий зразок ранньослов'янської кераміки.",
-      "photos": ["assets/photos/Photo.png"],
-      "normalMap": "assets/normalmaps/Cactus_u0_v0_normal.png",
-      "stl": "assets/models/Cactus.stl"  
+      "photos": [
+        "assets/photos/Photo.png",
+        "assets/photos/горщик_02.jpg",
+        "assets/photos/горщик_деталь.jpg"
+      ],
+      "normalMaps": [
+        "assets/normalmaps/Cactus_u0_v0_normal.png"
+      ],
+      "stl": "assets/models/Cactus.stl"
     }
   ]
 }
