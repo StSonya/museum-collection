@@ -213,11 +213,17 @@
                     </div>
                   </div>
 
-                                                <!-- Об'єкт -->
+                                                                 <!-- Об'єкт (повністю динамічний зі Sketchfab) -->
                   <div class="tab-pane fade" id="tab-object" style="height:520px;">
-                    <iframe src="${item.sketchfab || 'https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed'}" 
-                            style="width:100%; height:100%; border:none;" 
-                            allowfullscreen></iframe>
+                    ${item.sketchfab 
+                      ? `<iframe src="${item.sketchfab}" 
+                                 style="width:100%; height:100%; border:none;" 
+                                 allowfullscreen></iframe>`
+                      : `<div class="text-center mt-5 text-muted">
+                           <p>3D-модель відсутня</p>
+                           <small>Вставте посилання Sketchfab у data.json</small>
+                         </div>`
+                    }
                   </div>
                 </div>
               </div>
