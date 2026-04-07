@@ -19,28 +19,28 @@
     }
     .card-img-top {
       width: 100%;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 1 / 1;           /* Квадратне фото */
       object-fit: cover;
     }
+    .museum-name { font-size: 1.1rem; }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/STLLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body class="bg-light">
 
   <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3 sticky-top">
     <div class="container">
       <span class="museum-name text-muted fs-5">Назва музею</span>
+      
       <div class="d-flex align-items-center gap-3 ms-auto">
         <input type="text" id="searchInput" class="form-control" placeholder="Пошук за назвою або інвентарним номером..." style="width: 360px;">
-        <a href="https://твій-музей-сайт.ua" class="btn btn-outline-secondary" target="_blank">Головна</a>
+        <a href="https://твій-музей-сайт.ua" class="btn btn-outline-secondary" target="_blank">На головну</a>
       </div>
     </div>
   </nav>
 
   <div class="container py-5">
     <h1 class="fw-light text-center mb-5">Експозиція</h1>
+    
     <div id="exhibitsGrid" class="row justify-content-center g-4"></div>
 
     <div class="text-center mt-5">
@@ -126,14 +126,12 @@
       render();
     });
 
-    // ========== МОДАЛЬНЕ ВІКНО З STL ==========
     window.showDetail = function(id) {
       const item = allItems.find(i => i.id === id);
       if (!item) return;
 
       const photoPath = item.photos && item.photos[0] ? item.photos[0] : 'assets/photos/Photo.png';
       const normalPath = item.normalMap || 'assets/normalmaps/Cactus_u0_v0_normal.png';
-      const stlPath = item.stl || 'assets/models/Cactus.stl';   // < твій файл
 
       let modalHTML = `
         <div class="modal fade" id="detailModal" tabindex="-1">
@@ -150,6 +148,8 @@
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-normal">Нормалі</a></li>
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-form">Форма</a></li>
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-object">Об'єкт</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-conservation">Консервація</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-sources">Джерела</a></li>
                 </ul>
                 <div class="tab-content">
                   <div class="tab-pane fade show active" id="tab-desc">
@@ -157,10 +157,13 @@
                       <tr><td><strong>Інвентарний номер:</strong></td><td>${item.inventory}</td></tr>
                       <tr><td><strong>Назва:</strong></td><td>${item.title}</td></tr>
                       <tr><td><strong>Дата створення:</strong></td><td>${item.date || ''}</td></tr>
+                      <tr><td><strong>Період / культура:</strong></td><td>Ранньослов'янська культура</td></tr>
                       <tr><td><strong>Матеріал:</strong></td><td>${item.material || ''}</td></tr>
-                      <tr><td><strong>Техніка:</strong></td><td>${item.technique || ''}</td></tr>
+                      <tr><td><strong>Техніка виготовлення:</strong></td><td>${item.technique || ''}</td></tr>
                       <tr><td><strong>Розміри:</strong></td><td>${item.dimensions || ''}</td></tr>
                       <tr><td><strong>Місце знахідки:</strong></td><td>${item.origin || ''}</td></tr>
+                      <tr><td><strong>Зберігач:</strong></td><td>Краєзнавчий музей</td></tr>
+                      <tr><td><strong>Стан збереження:</strong></td><td>Добрий</td></tr>
                     </table>
                     <hr>
                     <p><strong>Опис:</strong> ${item.description || '—'}</p>
@@ -171,13 +174,15 @@
                   <div class="tab-pane fade" id="tab-normal">
                     <img src="${normalPath}" class="img-fluid rounded" alt="Карта нормалей">
                   </div>
-                  <div class="tab-pane fade" id="tab-form" style="height:520px; background:#f8f9fa;">
-                    <canvas id="stlCanvas" style="width:100%; height:100%;"></canvas>
+                  <div class="tab-pane fade" id="tab-form">
+                    <p class="text-center mt-5 text-muted">Тут буде проста 3D-модель (STL)</p>
                   </div>
                   <div class="tab-pane fade" id="tab-object" style="height:520px;">
                     <iframe src="https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed" 
                             style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
                   </div>
+                  <div class="tab-pane fade" id="tab-conservation"><p>Інформація про консервацію буде тут.</p></div>
+                  <div class="tab-pane fade" id="tab-sources"><p>Джерела та література будуть тут.</p></div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -191,65 +196,8 @@
       if (old) old.remove();
 
       document.body.insertAdjacentHTML('beforeend', modalHTML);
-      const modal = new bootstrap.Modal(document.getElementById('detailModal'));
-      modal.show();
-
-      // Ініціалізація STL після показу вкладки
-      setTimeout(() => {
-        initSTLViewer(stlPath);
-      }, 500);
+      new bootstrap.Modal(document.getElementById('detailModal')).show();
     };
-
-    function initSTLViewer(stlPath) {
-      const canvas = document.getElementById('stlCanvas');
-      if (!canvas) return;
-
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
-      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-      renderer.setClearColor(0xf8f9fa);
-
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-      scene.add(ambientLight);
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-      directionalLight.position.set(10, 10, 5);
-      scene.add(directionalLight);
-
-      const loader = new THREE.STLLoader();
-      loader.load(stlPath, function (geometry) {
-        const material = new THREE.MeshPhongMaterial({ color: 0x4a90e2, shininess: 30 });
-        const mesh = new THREE.Mesh(geometry, material);
-        
-        geometry.computeBoundingBox();
-        const center = geometry.boundingBox.getCenter(new THREE.Vector3());
-        mesh.position.sub(center);
-
-        const size = geometry.boundingBox.getSize(new THREE.Vector3());
-        const maxDim = Math.max(size.x, size.y, size.z);
-        mesh.scale.setScalar(15 / maxDim);
-
-        scene.add(mesh);
-        camera.position.z = 30;
-      });
-
-      function animate() {
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
-      }
-      animate();
-
-      // Обертання мишкою (простий варіант)
-      let isDragging = false;
-      let previousMouseX = 0;
-      canvas.addEventListener('mousedown', () => isDragging = true);
-      canvas.addEventListener('mouseup', () => isDragging = false);
-      canvas.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const delta = e.movementX * 0.005;
-        scene.rotation.y += delta;
-      });
-    }
 
     window.onload = loadData;
   </script>
