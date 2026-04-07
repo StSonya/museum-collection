@@ -126,12 +126,9 @@
       render();
     });
 
- window.showDetail = function(id) {
+     window.showDetail = function(id) {
       const item = allItems.find(i => i.id === id);
       if (!item) return;
-
-      const photoPath = item.photos && item.photos[0] ? item.photos[0] : 'assets/photos/Photo.png';
-      const normalPath = item.normalMap || 'assets/normalmaps/Cactus_u0_v0_normal.png';
 
       let modalHTML = `
         <div class="modal fade" id="detailModal" tabindex="-1">
@@ -207,7 +204,7 @@
                             </div>
                           `).join('')
                           : `<div class="carousel-item active">
-                               <img src="${normalPath}" class="d-block w-100 rounded" alt="Карта нормалей">
+                               <img src="assets/normalmaps/Cactus_u0_v0_normal.png" class="d-block w-100 rounded" alt="Карта нормалей">
                              </div>`
                         }
                       </div>
@@ -237,18 +234,12 @@
 
       const old = document.getElementById('detailModal');
       if (old) old.remove();
-
       document.body.insertAdjacentHTML('beforeend', modalHTML);
       new bootstrap.Modal(document.getElementById('detailModal')).show();
     };
 
-    // Допоміжна функція для динамічних полів
+    // Допоміжна функція
     function createField(label, value) {
       if (!value || value.toString().trim() === "") return "";
       return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
     }
-
-    window.onload = loadData;
-  </script>
-</body>
-</html>
