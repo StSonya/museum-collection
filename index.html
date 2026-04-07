@@ -163,9 +163,9 @@
                     <p><strong>Опис:</strong> ${item.description || '—'}</p>
                   </div>
 
-                  <!-- Фото — карусель -->
+                  <!-- Фото — карусель (без автоплей) -->
                   <div class="tab-pane fade" id="tab-photo">
-                    <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div id="photoCarousel" class="carousel slide">
                       <div class="carousel-inner">
                         ${item.photos && item.photos.length > 0 
                           ? item.photos.map((photo, index) => `
@@ -188,9 +188,9 @@
                     </div>
                   </div>
 
-                  <!-- Нормалі — карусель -->
+                  <!-- Нормалі — карусель (без автоплей) -->
                   <div class="tab-pane fade" id="tab-normal">
-                    <div id="normalCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div id="normalCarousel" class="carousel slide">
                       <div class="carousel-inner">
                         ${item.normalMaps && item.normalMaps.length > 0 
                           ? item.normalMaps.map((normal, index) => `
