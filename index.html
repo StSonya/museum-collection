@@ -6,6 +6,11 @@
   <title>Цифрова експозиція</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Three.js для STL -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/STLLoader.js"></script>
+
   <style>
     .card {
       transition: all 0.25s ease;
@@ -19,7 +24,7 @@
     }
     .card-img-top {
       width: 100%;
-      aspect-ratio: 1 / 1;           /* Квадратне фото */
+      aspect-ratio: 1 / 1;
       object-fit: cover;
     }
     .museum-name { font-size: 1.1rem; }
@@ -126,6 +131,7 @@
       render();
     });
 
+    // ==================== ТВОЄ СТАБІЛЬНЕ МОДАЛЬНЕ ВІКНО ====================
     window.showDetail = function(id) {
       const item = allItems.find(i => i.id === id);
       if (!item) return;
@@ -174,8 +180,8 @@
                   <div class="tab-pane fade" id="tab-normal">
                     <img src="${normalPath}" class="img-fluid rounded" alt="Карта нормалей">
                   </div>
-                  <div class="tab-pane fade" id="tab-form">
-                    <p class="text-center mt-5 text-muted">Тут буде проста 3D-модель (STL)</p>
+                  <div class="tab-pane fade" id="tab-form" style="height:520px; background:#f8f9fa;">
+                    <canvas id="stlCanvas" style="width:100%; height:100%;"></canvas>
                   </div>
                   <div class="tab-pane fade" id="tab-object" style="height:520px;">
                     <iframe src="https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed" 
@@ -194,10 +200,52 @@
 
       const old = document.getElementById('detailModal');
       if (old) old.remove();
-
       document.body.insertAdjacentHTML('beforeend', modalHTML);
       new bootstrap.Modal(document.getElementById('detailModal')).show();
+
+      // Ініціалізація STL після відкриття модального вікна
+      setTimeout(() => initSTLViewer(), 400);
     };
+
+    function initSTLViewer() {
+      const canvas = document.getElementById('stlCanvas');
+      if (!canvas) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+      renderer.setClearColor(0xf8f9fa);
+
+      scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+      const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+      dirLight.position.set(10, 10, 5);
+      scene.add(dirLight);
+
+      const loader = new THREE.STLLoader();
+      loader.load('assets/models/Cactus.stl', function (geometry) {
+        const material = new THREE.MeshPhongMaterial({ color: 0x4a90e2, shininess: 30 });
+        const mesh = new THREE.Mesh(geometry, material);
+
+        // Центрування та масштабування
+        geometry.computeBoundingBox();
+        const center = geometry.boundingBox.getCenter(new THREE.Vector3());
+        mesh.position.sub(center);
+
+        const size = geometry.boundingBox.getSize(new THREE.Vector3());
+        const maxDim = Math.max(size.x, size.y, size.z);
+        mesh.scale.setScalar(30 / maxDim);   // збільшив масштаб
+
+        scene.add(mesh);
+        camera.position.z = 45;
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      }
+      animate();
+    }
 
     window.onload = loadData;
   </script>
