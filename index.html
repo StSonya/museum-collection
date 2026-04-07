@@ -10,7 +10,7 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/STLLoader.js"></script>
 
   <style>
-    .card { transition: all 0.25s; border: none; border-radius: 12px; overflow: hidden; }
+    .card { transition: all 0.25s ease; border: none; border-radius: 12px; overflow: hidden; }
     .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.12)!important; }
     .card-img-top { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
   </style>
@@ -21,7 +21,7 @@
     <div class="container">
       <span class="museum-name text-muted fs-5">Назва музею</span>
       <div class="d-flex align-items-center gap-3 ms-auto">
-        <input type="text" id="searchInput" class="form-control" placeholder="Пошук..." style="width: 360px;">
+        <input type="text" id="searchInput" class="form-control" placeholder="Пошук за назвою або інвентарним номером..." style="width: 360px;">
         <a href="https://твій-музей-сайт.ua" class="btn btn-outline-secondary" target="_blank">На головну</a>
       </div>
     </div>
@@ -64,6 +64,7 @@
 
       pageItems.forEach(item => {
         const photo = item.photos && item.photos[0] ? item.photos[0] : 'assets/photos/Photo.png';
+        
         const cardHTML = `
           <div class="col-12 col-md-6 col-lg-4 col-xl-3">
             <div class="card h-100 shadow-sm" style="cursor:pointer;" onclick="showDetail('${item.id}')">
@@ -81,14 +82,12 @@
       document.getElementById('loadMoreBtn').style.display = (end < filteredItems.length) ? 'inline-block' : 'none';
     }
 
+    // Твоє стабільне модальне вікно + STL у "Форма"
     window.showDetail = function(id) {
       const item = allItems.find(i => i.id === id);
       if (!item) return;
 
-      let modalHTML = `... (твій опис, фото, нормалі) ...`;
-
-      // Повне модальне вікно з STL
-      modalHTML = `
+      let modalHTML = `
         <div class="modal fade" id="detailModal" tabindex="-1">
           <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -102,13 +101,33 @@
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Фото</a></li>
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-normal">Нормалі</a></li>
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-form">Форма</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-object">Об'єкт</a></li>
                 </ul>
                 <div class="tab-content">
-                  <div class="tab-pane fade show active" id="tab-desc">...твій опис...</div>
-                  <div class="tab-pane fade" id="tab-photo"><img src="${item.photos[0]}" class="img-fluid rounded"></div>
-                  <div class="tab-pane fade" id="tab-normal"><img src="${item.normalMap}" class="img-fluid rounded"></div>
+                  <div class="tab-pane fade show active" id="tab-desc">
+                    <table class="table table-borderless">
+                      <tr><td><strong>Інвентарний номер:</strong></td><td>${item.inventory}</td></tr>
+                      <tr><td><strong>Назва:</strong></td><td>${item.title}</td></tr>
+                      <tr><td><strong>Дата створення:</strong></td><td>${item.date || ''}</td></tr>
+                      <tr><td><strong>Матеріал:</strong></td><td>${item.material || ''}</td></tr>
+                      <tr><td><strong>Техніка:</strong></td><td>${item.technique || ''}</td></tr>
+                      <tr><td><strong>Розміри:</strong></td><td>${item.dimensions || ''}</td></tr>
+                      <tr><td><strong>Місце знахідки:</strong></td><td>${item.origin || ''}</td></tr>
+                    </table>
+                    <hr>
+                    <p><strong>Опис:</strong> ${item.description || '—'}</p>
+                  </div>
+                  <div class="tab-pane fade" id="tab-photo">
+                    <img src="${item.photos && item.photos[0] ? item.photos[0] : 'assets/photos/Photo.png'}" class="img-fluid rounded">
+                  </div>
+                  <div class="tab-pane fade" id="tab-normal">
+                    <img src="${item.normalMap || 'assets/normalmaps/Cactus_u0_v0_normal.png'}" class="img-fluid rounded">
+                  </div>
                   <div class="tab-pane fade" id="tab-form" style="height:520px; background:#f8f9fa;">
                     <canvas id="stlCanvas" style="width:100%; height:100%;"></canvas>
+                  </div>
+                  <div class="tab-pane fade" id="tab-object" style="height:520px;">
+                    <iframe src="https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
                   </div>
                 </div>
               </div>
@@ -124,11 +143,11 @@
       document.body.insertAdjacentHTML('beforeend', modalHTML);
       new bootstrap.Modal(document.getElementById('detailModal')).show();
 
-      // Ініціалізація STL з хорошим масштабуванням
-      setTimeout(() => initSTL('assets/models/Cactus.stl'), 300);
+      // Завантаження STL
+      setTimeout(() => initSTLViewer(), 400);
     };
 
-    function initSTL(url) {
+    function initSTLViewer() {
       const canvas = document.getElementById('stlCanvas');
       if (!canvas) return;
 
@@ -138,28 +157,26 @@
       renderer.setSize(canvas.clientWidth, canvas.clientHeight);
       renderer.setClearColor(0xf8f9fa);
 
-      scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+      scene.add(new THREE.AmbientLight(0xffffff, 0.8));
       const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
       dirLight.position.set(10, 10, 5);
       scene.add(dirLight);
 
       const loader = new THREE.STLLoader();
-      loader.load(url, geometry => {
-        const material = new THREE.MeshPhongMaterial({ color: 0x4a90e2, shininess: 40 });
+      loader.load('assets/models/Cactus.stl', function (geometry) {
+        const material = new THREE.MeshPhongMaterial({ color: 0x4a90e2, shininess: 30 });
         const mesh = new THREE.Mesh(geometry, material);
 
-        // Центрування та масштабування
         geometry.computeBoundingBox();
         const center = geometry.boundingBox.getCenter(new THREE.Vector3());
         mesh.position.sub(center);
 
         const size = geometry.boundingBox.getSize(new THREE.Vector3());
         const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 25 / maxDim;
-        mesh.scale.setScalar(scale);
+        mesh.scale.setScalar(25 / maxDim);
 
         scene.add(mesh);
-        camera.position.set(0, 0, 40);
+        camera.position.z = 40;
       });
 
       function animate() {
