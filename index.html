@@ -129,8 +129,30 @@
     window.showDetail = function(id) {
       const item = allItems.find(i => i.id === id);
       if (!item) return;
-
-      const photoPath = item.photos && item.photos[0] ? item.photos[0] : 'assets/photos/Photo.png';
+                      <div class="tab-pane fade" id="tab-photo">
+                    <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
+                      <div class="carousel-inner">
+                        ${item.photos && item.photos.length > 0 
+                          ? item.photos.map((photo, index) => `
+                            <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                              <img src="${photo}" class="d-block w-100 rounded" alt="${item.title} - фото ${index+1}">
+                            </div>
+                          `).join('')
+                          : `<div class="carousel-item active">
+                               <img src="assets/photos/Photo.png" class="d-block w-100 rounded" alt="Фото відсутнє">
+                             </div>`
+                        }
+                      </div>
+                      
+                      ${item.photos && item.photos.length > 1 ? `
+                      <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      </button>` : ''}
+                    </div>
+                  </div>
       const normalPath = item.normalMap || 'assets/normalmaps/Cactus_u0_v0_normal.png';
 
       let modalHTML = `
