@@ -26,7 +26,6 @@
   </style>
 </head>
 <body class="bg-light">
-
   <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3 sticky-top">
     <div class="container">
       <span class="museum-name text-muted fs-5">Назва музею</span>
@@ -40,13 +39,11 @@
 
   <div class="container py-5">
     <h1 class="fw-light text-center mb-5">Експозиція</h1>
-    
     <div id="exhibitsGrid" class="row justify-content-center g-4"></div>
-
+    
     <div class="text-center mt-5">
       <button id="loadMoreBtn" class="btn btn-primary btn-lg px-5">Показати ще</button>
     </div>
-
     <div id="pagination" class="d-flex justify-content-center gap-3 mt-4"></div>
   </div>
 
@@ -71,14 +68,12 @@
     function render() {
       const grid = document.getElementById('exhibitsGrid');
       grid.innerHTML = '';
-
       const start = (currentPage - 1) * itemsPerPage;
       const end = start + itemsPerPage;
       const pageItems = filteredItems.slice(start, end);
 
       pageItems.forEach(item => {
         const photo = item.photos && item.photos[0] ? item.photos[0] : 'assets/photos/Photo.png';
-        
         const cardHTML = `
           <div class="col-12 col-md-6 col-lg-4 col-xl-3">
             <div class="card h-100 shadow-sm" style="cursor:pointer;" onclick="showDetail('${item.id}')">
@@ -113,8 +108,8 @@
 
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const term = e.target.value.toLowerCase().trim();
-      filteredItems = allItems.filter(item => 
-        item.title.toLowerCase().includes(term) || 
+      filteredItems = allItems.filter(item =>
+        item.title.toLowerCase().includes(term) ||
         (item.inventory && item.inventory.toLowerCase().includes(term))
       );
       currentPage = 1;
@@ -126,7 +121,7 @@
       render();
     });
 
-     window.showDetail = function(id) {
+    window.showDetail = function(id) {
       const item = allItems.find(i => i.id === id);
       if (!item) return;
 
@@ -146,7 +141,6 @@
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-object">Об'єкт</a></li>
                 </ul>
                 <div class="tab-content">
-
                   <!-- Опис -->
                   <div class="tab-pane fade show active" id="tab-desc">
                     <table class="table table-borderless">
@@ -220,7 +214,7 @@
 
                   <!-- Об'єкт -->
                   <div class="tab-pane fade" id="tab-object" style="height:520px;">
-                    <iframe src="https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed" 
+                    <iframe src="https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed"
                             style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
                   </div>
                 </div>
@@ -238,8 +232,12 @@
       new bootstrap.Modal(document.getElementById('detailModal')).show();
     };
 
-    // Допоміжна функція
     function createField(label, value) {
       if (!value || value.toString().trim() === "") return "";
       return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
     }
+
+    window.onload = loadData;
+  </script>
+</body>
+</html>
