@@ -39,7 +39,7 @@
       "condition": "Добрий",
       "description": "Ліпний горщик з характерним орнаментом...",
       "photos": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
-      "normalMaps": [""],
+      "normalMaps": [],
       "sketchfab": "",
       "volume2": "",
       "video": ""
