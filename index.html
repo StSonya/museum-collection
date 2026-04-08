@@ -130,11 +130,15 @@
               </div>
               <div class="modal-body">
                 <ul class="nav nav-tabs mb-3">
-                  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Фото</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-normal">Нормалі</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-object">Об'єкт</a></li>
-                </ul>
+  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Фото</a></li>
+  
+  <!-- Нормалі — з'являється тільки якщо є файли -->
+  ${item.normalMaps && item.normalMaps.length > 0 ? `
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-normal">Нормалі</a></li>` : ''}
+  
+  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-object">Об'єкт</a></li>
+</ul>
                 <div class="tab-content">
 
                   <!-- Опис -->
@@ -142,7 +146,7 @@
                     <table class="table table-borderless">
                       ${createField("Інвентарний номер", item.inventory)}
                       ${createField("Назва", item.title)}
-                      ${createField("Альтернативна / народна назва", item.altName)}
+                      ${createField("Альтернативна назва", item.altName)}
                       ${createField("Дата створення", item.date)}
                       ${createField("Період / культура", item.period)}
                       ${createField("Матеріал", item.material)}
@@ -183,20 +187,28 @@
                     </div>
                   </div>
 
-                  <!-- Нормалі — карусель (без автоплей) -->
+                                  <!-- Нормалі — карусель (показується тільки якщо є файли) -->
+                  ${item.normalMaps && item.normalMaps.length > 0 ? `
                   <div class="tab-pane fade" id="tab-normal">
                     <div id="normalCarousel" class="carousel slide">
                       <div class="carousel-inner">
-                        ${item.normalMaps && item.normalMaps.length > 0 
-                          ? item.normalMaps.map((normal, index) => `
-                            <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                              <img src="${normal}" class="d-block w-100 rounded" alt="Карта нормалей ${index + 1}">
-                            </div>
-                          `).join('')
-                          : `<div class="carousel-item active">
-                               <img src="assets/normalmaps/Cactus_u0_v0_normal.png" class="d-block w-100 rounded" alt="Карта нормалей">
-                             </div>`
-                        }
+                        ${item.normalMaps.map((normal, index) => `
+                          <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                            <img src="${normal}" class="d-block w-100 rounded" alt="Карта нормалей ${index + 1}">
+                          </div>
+                        `).join('')}
+                      </div>
+
+                      <!-- Кнопки керування (завжди видно, навіть при 1 фото) -->
+                      <button class="carousel-control-prev" type="button" data-bs-target="#normalCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      </button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#normalCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </div>` : ''}
+                  
                       </div>
                       ${item.normalMaps && item.normalMaps.length > 1 ? `
                       <button class="carousel-control-prev" type="button" data-bs-target="#normalCarousel" data-bs-slide="prev">
