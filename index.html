@@ -133,23 +133,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
               </div>
               <div class="modal-body">
-                <ul class="nav nav-tabs mb-3">
-                  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис (1D)</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Зображення (2D)</a></li>
+                                <ul class="nav nav-tabs mb-3">
+                  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Зображення</a></li>
                   
                   ${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-relief">Рельєф (2.5D)</a></li>` : ''}
+                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-relief">Рельєф</a></li>` : ''}
                   
                   ${item.sketchfab && item.sketchfab.trim() !== '' ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume">Об'єм (3D)</a></li>` : ''}
+                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume">Об'єм</a></li>` : ''}
                   
                   ${item.volume2 && item.volume2.trim() !== '' ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume2">Об'єм (3D.2)</a></li>` : ''}
+                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume2">Об'єм#2</a></li>` : ''}
                   
                   ${item.video && item.video.trim() !== '' ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-video">Відео (4D)</a></li>` : ''}
+                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-video">Відео</a></li>` : ''}
                 </ul>
-
                 <div class="tab-content">
                   <!-- 1D Опис -->
                   <div class="tab-pane fade show active" id="tab-desc">
