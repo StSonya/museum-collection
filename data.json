@@ -16,12 +16,15 @@
       "conservator": "Краєзнавчий музей",
       "condition": "Добрий",
       "description": "Ліпний горщик з характерним орнаментом...",
+
       "photos": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
-      "normalMaps": [],
-      "sketchfab": ""
-      "3D#2": [],                                   // для STL або іншого
-      "video": ""                                      // для YouTube/Vimeo
-    },
+      "normalMaps": [],                    // Рельєф (2.5D)
+      "sketchfab": "",                     // Об'єм (3D) — Sketchfab
+      "volume2": "",                       // Об'єм (3D.2) — для STL або іншого
+      "video": ""                          // Відео (4D)
+    }
+  ]
+},
     {
             "id": "exp-002",
       "inventory": "МК-002",
