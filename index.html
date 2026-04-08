@@ -53,11 +53,15 @@
     const itemsPerPage = 12;
 
     async function loadData() {
-      const res = await fetch('data.json?' + new Date().getTime());
-      const data = await res.json();
-      allItems = data.collection || [];
-      filteredItems = [...allItems];
-      render();
+      try {
+        const res = await fetch('data.json?' + new Date().getTime());
+        const data = await res.json();
+        allItems = data.collection || [];
+        filteredItems = [...allItems];
+        render();
+      } catch (e) {
+        console.error("Помилка завантаження data.json", e);
+      }
     }
 
     function render() {
@@ -104,8 +108,8 @@
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const term = e.target.value.toLowerCase().trim();
       filteredItems = allItems.filter(item =>
-        item.title.toLowerCase().includes(term) ||
-        (item.inventory && item.inventory.toLowerCase().includes(term))
+        (item.title || '').toLowerCase().includes(term) ||
+        (item.inventory || '').toLowerCase().includes(term)
       );
       currentPage = 1;
       render();
@@ -116,7 +120,7 @@
       render();
     });
 
-           window.showDetail = function(id) {
+    window.showDetail = function(id) {
       const item = allItems.find(i => i.id === id);
       if (!item) return;
 
@@ -147,8 +151,7 @@
                 </ul>
 
                 <div class="tab-content">
-
-                  <!-- 1D Опис -->
+                  <!-- Опис (1D) -->
                   <div class="tab-pane fade show active" id="tab-desc">
                     <table class="table table-borderless">
                       ${createField("Інвентарний номер", item.inventory)}
@@ -169,7 +172,7 @@
                     <p><strong>Опис:</strong> ${item.description || '—'}</p>
                   </div>
 
-                  <!-- 2D Зображення -->
+                  <!-- Зображення (2D) -->
                   <div class="tab-pane fade" id="tab-photo">
                     <div id="photoCarousel" class="carousel slide">
                       <div class="carousel-inner">
@@ -192,7 +195,7 @@
                     </div>
                   </div>
 
-                  <!-- 2.5D Рельєф -->
+                  <!-- Рельєф (2.5D) -->
                   ${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? `
                   <div class="tab-pane fade" id="tab-relief">
                     <div id="reliefCarousel" class="carousel slide">
@@ -212,19 +215,19 @@
                     </div>
                   </div>` : ''}
 
-                  <!-- 3D Об'єм (Sketchfab) -->
+                  <!-- Об'єм (3D) -->
                   ${item.sketchfab && item.sketchfab.trim() !== '' ? `
                   <div class="tab-pane fade" id="tab-volume" style="height:520px;">
                     <iframe src="${item.sketchfab}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
                   </div>` : ''}
 
-                  <!-- 3D.2 Об'єм (додатковий) -->
+                  <!-- Об'єм (3D.2) -->
                   ${item.volume2 && item.volume2.trim() !== '' ? `
                   <div class="tab-pane fade" id="tab-volume2" style="height:520px;">
                     <iframe src="${item.volume2}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
                   </div>` : ''}
 
-                  <!-- 4D Відео -->
+                  <!-- Відео (4D) -->
                   ${item.video && item.video.trim() !== '' ? `
                   <div class="tab-pane fade" id="tab-video" style="height:520px;">
                     <iframe src="${item.video}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
@@ -245,13 +248,14 @@
       new bootstrap.Modal(document.getElementById('detailModal')).show();
     };
 
-      function createField(label, value) {
+    function createField(label, value) {
       if (!value || value.toString().trim() === "") return "";
       return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
     }
 
     window.onload = loadData;
   </script>
+
   <footer class="bg-white border-top py-4 text-center text-muted small">
     © [Назва музею], 2026. Всі права захищені.<br>
     Матеріали поширюються за ліцензією 
