@@ -19,46 +19,6 @@
       "photos": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
       "normalMaps": [],
       "sketchfab": ""
-    },
-    {
-            "id": "exp-002",
-      "inventory": "МК-002",
-      "title": "Горщик ліпний",
-      "altName": "Горщик для каші",
-      "shortDesc": "X–XI ст., слов'янська кераміка",
-      "material": "Глина",
-      "technique": "Ліплення від руки",
-      "date": "X–XI ст.",
-      "dimensions": "Висота 18 см, діаметр 15 см",
-      "weight": "420 г",
-      "origin": "Розкопки біля с. Іванівка, 2018 р.",
-      "author": "",
-      "conservator": "Краєзнавчий музей",
-      "condition": "Добрий",
-      "description": "Ліпний горщик з характерним орнаментом...",
-      "photos": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
-      "normalMaps": [],
-      "sketchfab": ""
-     },
-    {
-            "id": "exp-003",
-      "inventory": "МК-003",
-      "title": "Горщик ліпний",
-      "altName": "Горщик для каші",
-      "shortDesc": "X–XI ст., слов'янська кераміка",
-      "material": "Глина",
-      "technique": "Ліплення від руки",
-      "date": "X–XI ст.",
-      "dimensions": "Висота 18 см, діаметр 15 см",
-      "weight": "420 г",
-      "origin": "Розкопки біля с. Іванівка, 2018 р.",
-      "author": "",
-      "conservator": "Краєзнавчий музей",
-      "condition": "Добрий",
-      "description": "Ліпний горщик з характерним орнаментом...",
-      "photos": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
-      "normalMaps": [],
-      "sketchfab": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed"
-     }
+    }
   ]
 }
