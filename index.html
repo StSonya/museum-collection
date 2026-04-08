@@ -29,6 +29,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3 sticky-top">
     <div class="container">
       <span class="museum-name text-muted fs-5">Назва музею</span>
+      
       <div class="d-flex align-items-center gap-3 ms-auto">
         <input type="text" id="searchInput" class="form-control" placeholder="Пошук за назвою або інвентарним номером" style="width: 360px;">
         <a href="https://твій-музей-сайт.ua" class="btn btn-outline-secondary" target="_blank">Головна</a>
@@ -45,7 +46,6 @@
     </div>
     <div id="pagination" class="d-flex justify-content-center gap-3 mt-4"></div>
   </div>
-
   <script>
     let allItems = [];
     let filteredItems = [];
@@ -116,7 +116,7 @@
       render();
     });
 
-        window.showDetail = function(id) {
+    window.showDetail = function(id) {
       const item = allItems.find(i => i.id === id);
       if (!item) return;
 
@@ -132,14 +132,9 @@
                 <ul class="nav nav-tabs mb-3">
                   <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Фото</a></li>
-                  
-                  ${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-normal">Нормалі</a></li>` : ''}
-                  
-                  ${item.sketchfab && typeof item.sketchfab === 'string' && item.sketchfab.trim() !== '' ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-object">Об'єкт</a></li>` : ''}
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-normal">Нормалі</a></li>
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-object">Об'єкт</a></li>
                 </ul>
-
                 <div class="tab-content">
 
                   <!-- Опис -->
@@ -163,7 +158,7 @@
                     <p><strong>Опис:</strong> ${item.description || '—'}</p>
                   </div>
 
-                  <!-- Фото -->
+                  <!-- Фото — карусель (без автоплей) -->
                   <div class="tab-pane fade" id="tab-photo">
                     <div id="photoCarousel" class="carousel slide">
                       <div class="carousel-inner">
@@ -188,32 +183,43 @@
                     </div>
                   </div>
 
-                  <!-- Нормалі — тільки якщо є файли -->
-                  ${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? `
+                  <!-- Нормалі — карусель (без автоплей) -->
                   <div class="tab-pane fade" id="tab-normal">
                     <div id="normalCarousel" class="carousel slide">
                       <div class="carousel-inner">
-                        ${item.normalMaps.map((normal, index) => `
-                          <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                            <img src="${normal}" class="d-block w-100 rounded" alt="Карта нормалей ${index + 1}">
-                          </div>
-                        `).join('')}
+                        ${item.normalMaps && item.normalMaps.length > 0 
+                          ? item.normalMaps.map((normal, index) => `
+                            <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                              <img src="${normal}" class="d-block w-100 rounded" alt="Карта нормалей ${index + 1}">
+                            </div>
+                          `).join('')
+                          : `<div class="carousel-item active">
+                               <img src="assets/normalmaps/Cactus_u0_v0_normal.png" class="d-block w-100 rounded" alt="Карта нормалей">
+                             </div>`
+                        }
                       </div>
+                      ${item.normalMaps && item.normalMaps.length > 1 ? `
                       <button class="carousel-control-prev" type="button" data-bs-target="#normalCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                       </button>
                       <button class="carousel-control-next" type="button" data-bs-target="#normalCarousel" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      </button>
+                      </button>` : ''}
                     </div>
-                  </div>` : ''}
+                  </div>
 
-                  <!-- Об'єкт — тільки якщо є Sketchfab -->
-                  ${item.sketchfab && typeof item.sketchfab === 'string' && item.sketchfab.trim() !== '' ? `
+                                                                 <!-- Об'єкт (повністю динамічний зі Sketchfab) -->
                   <div class="tab-pane fade" id="tab-object" style="height:520px;">
-                    <iframe src="${item.sketchfab}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
-                  </div>` : ''}
-
+                    ${item.sketchfab 
+                      ? `<iframe src="${item.sketchfab}" 
+                                 style="width:100%; height:100%; border:none;" 
+                                 allowfullscreen></iframe>`
+                      : `<div class="text-center mt-5 text-muted">
+                           <p>3D-модель відсутня</p>
+                           <small>Вставте посилання Sketchfab у data.json</small>
+                         </div>`
+                    }
+                  </div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -229,7 +235,7 @@
       new bootstrap.Modal(document.getElementById('detailModal')).show();
     };
 
-      function createField(label, value) {
+    function createField(label, value) {
       if (!value || value.toString().trim() === "") return "";
       return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
     }
@@ -241,5 +247,7 @@
     Матеріали поширюються за ліцензією 
     <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" class="text-muted">CC BY-NC-ND 4.0</a>
   </footer>
+</body>
+</html>
 </body>
 </html>
