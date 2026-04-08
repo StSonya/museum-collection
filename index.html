@@ -24,11 +24,12 @@
     }
     .museum-name { font-size: 1.1rem; }
 
-    /* Стрілки каруселі — більш помітні та по центру */
+    /* Чорні та помітні стрілки каруселі */
     .carousel-control-prev,
     .carousel-control-next {
-      filter: brightness(0.1); /* робить стрілки чорними */
-      opacity: 0.9;
+      filter: brightness(0) invert(0);
+      opacity: 0.85;
+      width: 50px;
     }
     .carousel-control-prev:hover,
     .carousel-control-next:hover {
@@ -145,12 +146,13 @@
                   <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Фото</a></li>
                   
-                  ${item.normalMaps && item.normalMaps.length > 0 ? `
+                  ${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? `
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-normal">Нормалі</a></li>` : ''}
                   
-                  ${item.sketchfab ? `
+                  ${item.sketchfab && item.sketchfab.trim() !== '' ? `
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-object">Об'єкт</a></li>` : ''}
                 </ul>
+
                 <div class="tab-content">
 
                   <!-- Опис -->
@@ -198,7 +200,7 @@
                   </div>
 
                   <!-- Нормалі (тільки якщо є) -->
-                  ${item.normalMaps && item.normalMaps.length > 0 ? `
+                  ${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? `
                   <div class="tab-pane fade" id="tab-normal">
                     <div id="normalCarousel" class="carousel slide">
                       <div class="carousel-inner">
@@ -218,7 +220,7 @@
                   </div>` : ''}
 
                   <!-- Об'єкт (тільки якщо є Sketchfab) -->
-                  ${item.sketchfab ? `
+                  ${item.sketchfab && item.sketchfab.trim() !== '' ? `
                   <div class="tab-pane fade" id="tab-object" style="height:520px;">
                     <iframe src="${item.sketchfab}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
                   </div>` : ''}
