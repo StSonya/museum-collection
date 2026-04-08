@@ -116,7 +116,7 @@
       render();
     });
 
-       window.showDetail = function(id) {
+        window.showDetail = function(id) {
       const item = allItems.find(i => i.id === id);
       if (!item) return;
 
@@ -229,7 +229,7 @@
       new bootstrap.Modal(document.getElementById('detailModal')).show();
     };
 
-    function createField(label, value) {
+      function createField(label, value) {
       if (!value || value.toString().trim() === "") return "";
       return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
     }
