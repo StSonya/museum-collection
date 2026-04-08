@@ -23,6 +23,17 @@
       object-fit: cover;
     }
     .museum-name { font-size: 1.1rem; }
+
+    /* Стрілки каруселі — більш помітні та по центру */
+    .carousel-control-prev,
+    .carousel-control-next {
+      filter: brightness(0.1); /* робить стрілки чорними */
+      opacity: 0.9;
+    }
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+      opacity: 1;
+    }
   </style>
 </head>
 <body class="bg-light">
@@ -46,6 +57,7 @@
     </div>
     <div id="pagination" class="d-flex justify-content-center gap-3 mt-4"></div>
   </div>
+
   <script>
     let allItems = [];
     let filteredItems = [];
@@ -132,8 +144,12 @@
                 <ul class="nav nav-tabs mb-3">
                   <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Фото</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-normal">Нормалі</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-object">Об'єкт</a></li>
+                  
+                  ${item.normalMaps && item.normalMaps.length > 0 ? `
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-normal">Нормалі</a></li>` : ''}
+                  
+                  ${item.sketchfab ? `
+                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-object">Об'єкт</a></li>` : ''}
                 </ul>
                 <div class="tab-content">
 
@@ -158,7 +174,7 @@
                     <p><strong>Опис:</strong> ${item.description || '—'}</p>
                   </div>
 
-                  <!-- Фото — карусель (без автоплей) -->
+                  <!-- Фото -->
                   <div class="tab-pane fade" id="tab-photo">
                     <div id="photoCarousel" class="carousel slide">
                       <div class="carousel-inner">
@@ -168,9 +184,7 @@
                               <img src="${photo}" class="d-block w-100 rounded" alt="${item.title} — фото ${index + 1}">
                             </div>
                           `).join('')
-                          : `<div class="carousel-item active">
-                               <img src="assets/photos/Photo.png" class="d-block w-100 rounded" alt="Фото відсутнє">
-                             </div>`
+                          : `<div class="carousel-item active"><img src="assets/photos/Photo.png" class="d-block w-100 rounded" alt="Фото відсутнє"></div>`
                         }
                       </div>
                       ${item.photos && item.photos.length > 1 ? `
@@ -183,43 +197,32 @@
                     </div>
                   </div>
 
-                  <!-- Нормалі — карусель (без автоплей) -->
+                  <!-- Нормалі (тільки якщо є) -->
+                  ${item.normalMaps && item.normalMaps.length > 0 ? `
                   <div class="tab-pane fade" id="tab-normal">
                     <div id="normalCarousel" class="carousel slide">
                       <div class="carousel-inner">
-                        ${item.normalMaps && item.normalMaps.length > 0 
-                          ? item.normalMaps.map((normal, index) => `
-                            <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                              <img src="${normal}" class="d-block w-100 rounded" alt="Карта нормалей ${index + 1}">
-                            </div>
-                          `).join('')
-                          : `<div class="carousel-item active">
-                               <img src="assets/normalmaps/Cactus_u0_v0_normal.png" class="d-block w-100 rounded" alt="Карта нормалей">
-                             </div>`
-                        }
+                        ${item.normalMaps.map((normal, index) => `
+                          <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                            <img src="${normal}" class="d-block w-100 rounded" alt="Карта нормалей ${index + 1}">
+                          </div>
+                        `).join('')}
                       </div>
-                      ${item.normalMaps && item.normalMaps.length > 1 ? `
                       <button class="carousel-control-prev" type="button" data-bs-target="#normalCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                       </button>
                       <button class="carousel-control-next" type="button" data-bs-target="#normalCarousel" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      </button>` : ''}
+                      </button>
                     </div>
-                  </div>
+                  </div>` : ''}
 
-                                                                 <!-- Об'єкт (повністю динамічний зі Sketchfab) -->
+                  <!-- Об'єкт (тільки якщо є Sketchfab) -->
+                  ${item.sketchfab ? `
                   <div class="tab-pane fade" id="tab-object" style="height:520px;">
-                    ${item.sketchfab 
-                      ? `<iframe src="${item.sketchfab}" 
-                                 style="width:100%; height:100%; border:none;" 
-                                 allowfullscreen></iframe>`
-                      : `<div class="text-center mt-5 text-muted">
-                           <p>3D-модель відсутня</p>
-                           <small>Вставте посилання Sketchfab у data.json</small>
-                         </div>`
-                    }
-                  </div>
+                    <iframe src="${item.sketchfab}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
+                  </div>` : ''}
+
                 </div>
               </div>
               <div class="modal-footer">
@@ -242,12 +245,11 @@
 
     window.onload = loadData;
   </script>
+
   <footer class="bg-white border-top py-4 text-center text-muted small">
     © [Назва музею], 2026. Всі права захищені.<br>
     Матеріали поширюються за ліцензією 
     <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" class="text-muted">CC BY-NC-ND 4.0</a>
   </footer>
-</body>
-</html>
 </body>
 </html>
