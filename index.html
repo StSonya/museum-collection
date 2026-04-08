@@ -24,24 +24,18 @@
     }
     .museum-name { font-size: 1.1rem; }
 
-    /* Чорні та помітні стрілки каруселі */
-    .carousel-control-prev,
-    .carousel-control-next {
+    .carousel-control-prev, .carousel-control-next {
       filter: brightness(0) invert(0);
-      opacity: 0.85;
+      opacity: 0.9;
       width: 50px;
     }
-    .carousel-control-prev:hover,
-    .carousel-control-next:hover {
-      opacity: 1;
-    }
+    .carousel-control-prev:hover, .carousel-control-next:hover { opacity: 1; }
   </style>
 </head>
 <body class="bg-light">
   <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3 sticky-top">
     <div class="container">
       <span class="museum-name text-muted fs-5">Назва музею</span>
-      
       <div class="d-flex align-items-center gap-3 ms-auto">
         <input type="text" id="searchInput" class="form-control" placeholder="Пошук за назвою або інвентарним номером" style="width: 360px;">
         <a href="https://твій-музей-сайт.ua" class="btn btn-outline-secondary" target="_blank">Головна</a>
@@ -117,8 +111,8 @@
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const term = e.target.value.toLowerCase().trim();
       filteredItems = allItems.filter(item =>
-        item.title.toLowerCase().includes(term) ||
-        (item.inventory && item.inventory.toLowerCase().includes(term))
+        (item.title || '').toLowerCase().includes(term) ||
+        (item.inventory || '').toLowerCase().includes(term)
       );
       currentPage = 1;
       render();
@@ -145,113 +139,4 @@
                 <ul class="nav nav-tabs mb-3">
                   <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Фото</a></li>
-                  
-                  ${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? `
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-normal">Нормалі</a></li>` : ''}
-                  
-                  ${item.sketchfab && item.sketchfab.trim() !== '' ? `
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-object">Об'єкт</a></li>` : ''}
-                </ul>
-
-                <div class="tab-content">
-
-                  <!-- Опис -->
-                  <div class="tab-pane fade show active" id="tab-desc">
-                    <table class="table table-borderless">
-                      ${createField("Інвентарний номер", item.inventory)}
-                      ${createField("Назва", item.title)}
-                      ${createField("Альтернативна / народна назва", item.altName)}
-                      ${createField("Дата створення", item.date)}
-                      ${createField("Період / культура", item.period)}
-                      ${createField("Матеріал", item.material)}
-                      ${createField("Техніка виготовлення", item.technique)}
-                      ${createField("Розміри", item.dimensions)}
-                      ${createField("Вага", item.weight)}
-                      ${createField("Місце знахідки / походження", item.origin)}
-                      ${createField("Автор / майстер", item.author)}
-                      ${createField("Зберігач", item.conservator)}
-                      ${createField("Стан збереження", item.condition)}
-                    </table>
-                    <hr>
-                    <p><strong>Опис:</strong> ${item.description || '—'}</p>
-                  </div>
-
-                  <!-- Фото -->
-                  <div class="tab-pane fade" id="tab-photo">
-                    <div id="photoCarousel" class="carousel slide">
-                      <div class="carousel-inner">
-                        ${item.photos && item.photos.length > 0 
-                          ? item.photos.map((photo, index) => `
-                            <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                              <img src="${photo}" class="d-block w-100 rounded" alt="${item.title} — фото ${index + 1}">
-                            </div>
-                          `).join('')
-                          : `<div class="carousel-item active"><img src="assets/photos/Photo.png" class="d-block w-100 rounded" alt="Фото відсутнє"></div>`
-                        }
-                      </div>
-                      ${item.photos && item.photos.length > 1 ? `
-                      <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      </button>` : ''}
-                    </div>
-                  </div>
-
-                  <!-- Нормалі (тільки якщо є) -->
-                  ${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? `
-                  <div class="tab-pane fade" id="tab-normal">
-                    <div id="normalCarousel" class="carousel slide">
-                      <div class="carousel-inner">
-                        ${item.normalMaps.map((normal, index) => `
-                          <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                            <img src="${normal}" class="d-block w-100 rounded" alt="Карта нормалей ${index + 1}">
-                          </div>
-                        `).join('')}
-                      </div>
-                      <button class="carousel-control-prev" type="button" data-bs-target="#normalCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#normalCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      </button>
-                    </div>
-                  </div>` : ''}
-
-                  <!-- Об'єкт (тільки якщо є Sketchfab) -->
-                  ${item.sketchfab && item.sketchfab.trim() !== '' ? `
-                  <div class="tab-pane fade" id="tab-object" style="height:520px;">
-                    <iframe src="${item.sketchfab}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
-                  </div>` : ''}
-
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
-              </div>
-            </div>
-          </div>
-        </div>`;
-
-      const old = document.getElementById('detailModal');
-      if (old) old.remove();
-      document.body.insertAdjacentHTML('beforeend', modalHTML);
-      new bootstrap.Modal(document.getElementById('detailModal')).show();
-    };
-
-    function createField(label, value) {
-      if (!value || value.toString().trim() === "") return "";
-      return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
-    }
-
-    window.onload = loadData;
-  </script>
-
-  <footer class="bg-white border-top py-4 text-center text-muted small">
-    © [Назва музею], 2026. Всі права захищені.<br>
-    Матеріали поширюються за ліцензією 
-    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" class="text-muted">CC BY-NC-ND 4.0</a>
-  </footer>
-</body>
-</html>
+                  ${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? `<
