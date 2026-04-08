@@ -18,7 +18,9 @@
       "description": "Ліпний горщик з характерним орнаментом...",
       "photos": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
       "normalMaps": [],
-      "sketchfab": []
+      "sketchfab": ""
+      "3D#2": [],                                   // для STL або іншого
+      "video": ""                                      // для YouTube/Vimeo
     },
     {
             "id": "exp-002",
