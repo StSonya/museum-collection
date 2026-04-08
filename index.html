@@ -137,21 +137,13 @@
                   <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис (1D)</a></li>
                   <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">Зображення (2D)</a></li>
                   
-                  ${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-relief">Рельєф (2.5D)</a></li>` : ''}
-                  
-                  ${item.sketchfab && item.sketchfab.trim() !== '' ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume">Об'єм (3D)</a></li>` : ''}
-                  
-                  ${item.volume2 && item.volume2.trim() !== '' ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume2">Об'єм (3D.2)</a></li>` : ''}
-                  
-                  ${item.video && item.video.trim() !== '' ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-video">Відео (4D)</a></li>` : ''}
+                  ${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-relief">Рельєф (2.5D)</a></li>` : ''}
+                  ${item.sketchfab && item.sketchfab.trim() !== '' ? `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume">Об'єм (3D)</a></li>` : ''}
+                  ${item.volume2 && item.volume2.trim() !== '' ? `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume2">Об'єм (3D.2)</a></li>` : ''}
+                  ${item.video && item.video.trim() !== '' ? `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-video">Відео (4D)</a></li>` : ''}
                 </ul>
 
                 <div class="tab-content">
-                  <!-- Опис (1D) -->
                   <div class="tab-pane fade show active" id="tab-desc">
                     <table class="table table-borderless">
                       ${createField("Інвентарний номер", item.inventory)}
@@ -172,30 +164,21 @@
                     <p><strong>Опис:</strong> ${item.description || '—'}</p>
                   </div>
 
-                  <!-- Зображення (2D) -->
                   <div class="tab-pane fade" id="tab-photo">
                     <div id="photoCarousel" class="carousel slide">
                       <div class="carousel-inner">
-                        ${item.photos && item.photos.length > 0 
-                          ? item.photos.map((photo, index) => `
-                            <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                              <img src="${photo}" class="d-block w-100 rounded" alt="${item.title} — фото ${index + 1}">
-                            </div>
-                          `).join('')
-                          : `<div class="carousel-item active"><img src="assets/photos/Photo.png" class="d-block w-100 rounded" alt="Фото відсутнє"></div>`
-                        }
+                        ${item.photos && item.photos.length > 0 ? item.photos.map((photo, index) => `
+                          <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                            <img src="${photo}" class="d-block w-100 rounded" alt="${item.title} — фото ${index + 1}">
+                          </div>
+                        `).join('') : `<div class="carousel-item active"><img src="assets/photos/Photo.png" class="d-block w-100 rounded" alt="Фото відсутнє"></div>`}
                       </div>
                       ${item.photos && item.photos.length > 1 ? `
-                      <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      </button>` : ''}
+                      <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>` : ''}
                     </div>
                   </div>
 
-                  <!-- Рельєф (2.5D) -->
                   ${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? `
                   <div class="tab-pane fade" id="tab-relief">
                     <div id="reliefCarousel" class="carousel slide">
@@ -206,33 +189,25 @@
                           </div>
                         `).join('')}
                       </div>
-                      <button class="carousel-control-prev" type="button" data-bs-target="#reliefCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#reliefCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      </button>
+                      <button class="carousel-control-prev" type="button" data-bs-target="#reliefCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                      <button class="carousel-control-next" type="button" data-bs-target="#reliefCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
                     </div>
                   </div>` : ''}
 
-                  <!-- Об'єм (3D) -->
                   ${item.sketchfab && item.sketchfab.trim() !== '' ? `
                   <div class="tab-pane fade" id="tab-volume" style="height:520px;">
                     <iframe src="${item.sketchfab}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
                   </div>` : ''}
 
-                  <!-- Об'єм (3D.2) -->
                   ${item.volume2 && item.volume2.trim() !== '' ? `
                   <div class="tab-pane fade" id="tab-volume2" style="height:520px;">
                     <iframe src="${item.volume2}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
                   </div>` : ''}
 
-                  <!-- Відео (4D) -->
                   ${item.video && item.video.trim() !== '' ? `
                   <div class="tab-pane fade" id="tab-video" style="height:520px;">
                     <iframe src="${item.video}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
                   </div>` : ''}
-
                 </div>
               </div>
               <div class="modal-footer">
@@ -245,21 +220,4 @@
       const old = document.getElementById('detailModal');
       if (old) old.remove();
       document.body.insertAdjacentHTML('beforeend', modalHTML);
-      new bootstrap.Modal(document.getElementById('detailModal')).show();
-    };
-
-    function createField(label, value) {
-      if (!value || value.toString().trim() === "") return "";
-      return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
-    }
-
-    window.onload = loadData;
-  </script>
-
-  <footer class="bg-white border-top py-4 text-center text-muted small">
-    © [Назва музею], 2026. Всі права захищені.<br>
-    Матеріали поширюються за ліцензією 
-    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" class="text-muted">CC BY-NC-ND 4.0</a>
-  </footer>
-</body>
-</html>
+      new bootstrap.Modal(document.getElementBy
