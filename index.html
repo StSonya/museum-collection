@@ -236,19 +236,14 @@
                     </model-viewer>
                   </div>` : ''}
 
-                  <!-- 4D Відео -->
+                                  <!-- 4D Відео / GIF -->
                   ${item.video && item.video.trim() !== '' ? `
-                  <div class="tab-pane fade" id="tab-video" style="height:520px;">
-                    <iframe src="${item.video}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
+                  <div class="tab-pane fade" id="tab-video" style="height:520px; background:#000;">
+                    ${item.video.endsWith('.gif') || item.video.endsWith('.GIF') ?
+                      `<img src="${item.video}" style="width:100%; height:100%; object-fit:contain;" alt="GIF анімація">` :
+                      `<iframe src="${item.video}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>`
+                    }
                   </div>` : ''}
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
-              </div>
-            </div>
-          </div>
-        </div>`;
 
       const old = document.getElementById('detailModal');
       if (old) old.remove();
