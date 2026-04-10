@@ -25,12 +25,11 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      // === Контент для вкладок ===
-      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
-      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
-      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
-      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D-II": "assets/models/Cactus.stl",
+      "4D": "assets/animations/mario-coins.gif"
     },
     {
       "id": "exp-002",
@@ -57,12 +56,11 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      // === Контент для вкладок ===
-      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
-      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
-      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
-      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D-II": "assets/models/Cactus.stl",
+      "4D": "assets/animations/mario-coins.gif"
     },
     {
       "id": "exp-003",
@@ -89,12 +87,11 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      // === Контент для вкладок ===
-      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
-      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
-      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
-      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D-II": "assets/models/Cactus.stl",
+      "4D": "assets/animations/mario-coins.gif"
     },
     {
       "id": "exp-004",
@@ -121,14 +118,13 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      // === Контент для вкладок ===
-      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
-      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
-      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
-      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D-II": "assets/models/Cactus.stl",
+      "4D": "assets/animations/mario-coins.gif"
     },
-    {
+   {
       "id": "exp-005",
       "inventory": "МК-005",
       "title": "Горщик ліпний",
@@ -153,14 +149,13 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      // === Контент для вкладок ===
-      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
-      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
-      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
-      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D-II": "assets/models/Cactus.stl",
+      "4D": "assets/animations/mario-coins.gif"
     },
-    {
+   {
       "id": "exp-006",
       "inventory": "МК-006",
       "title": "Горщик ліпний",
@@ -185,14 +180,13 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      // === Контент для вкладок ===
-      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
-      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
-      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
-      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D-II": "assets/models/Cactus.stl",
+      "4D": "assets/animations/mario-coins.gif"
     },
-    {
+   {
       "id": "exp-007",
       "inventory": "МК-007",
       "title": "Горщик ліпний",
@@ -217,14 +211,13 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      // === Контент для вкладок ===
-      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
-      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
-      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
-      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D-II": "assets/models/Cactus.stl",
+      "4D": "assets/animations/mario-coins.gif"
     },
-    {
+   {
       "id": "exp-008",
       "inventory": "МК-008",
       "title": "Горщик ліпний",
@@ -249,14 +242,13 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      // === Контент для вкладок ===
-      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
-      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
-      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
-      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D-II": "assets/models/Cactus.stl",
+      "4D": "assets/animations/mario-coins.gif"
     },
-    {
+   {
       "id": "exp-009",
       "inventory": "МК-009",
       "title": "Горщик ліпний",
@@ -281,12 +273,11 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      // === Контент для вкладок ===
-      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
-      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
-      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
-      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D-II": "assets/models/Cactus.stl",
+      "4D": "assets/animations/mario-coins.gif"
     },
     {
       "id": "exp-0010",
@@ -313,14 +304,13 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      // === Контент для вкладок ===
-      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
-      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
-      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
-      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D-II": "assets/models/Cactus.stl",
+      "4D": "assets/animations/mario-coins.gif"
     },
-    {
+   {
       "id": "exp-0011",
       "inventory": "МК-0011",
       "title": "Горщик ліпний",
@@ -345,12 +335,11 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      // === Контент для вкладок ===
-      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
-      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
-      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
-      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D-II": "assets/models/Cactus.stl",
+      "4D": "assets/animations/mario-coins.gif"
     },
     {
       "id": "exp-0012",
@@ -377,12 +366,11 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      // === Контент для вкладок ===
-      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
-      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
-      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
-      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D-II": "assets/models/Cactus.stl",
+      "4D": "assets/animations/mario-coins.gif"
     },
     {
       "id": "exp-0013",
@@ -409,12 +397,11 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      // === Контент для вкладок ===
-      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
-      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
-      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
-      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D-II": "assets/models/Cactus.stl",
+      "4D": "assets/animations/mario-coins.gif"
     }
   ]
 }
