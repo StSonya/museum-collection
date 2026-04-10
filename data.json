@@ -1,70 +1,420 @@
 {
   "collection": [
+{
+      "id": "exp-001",
+      "inventory": "МК-001",
+      "title": "Горщик ліпний",
+
+      "type": "Горщик",
+      "type_wikidata": "Q168729",
+
+      "altName": "Горщик для каші",
+      "shortDesc": "X–XI ст., слов'янська кераміка",
+
+      "material": "Глина",
+      "material_wikidata": "Q42222",
+
+      "technique": "Ліплення від руки",
+      "technique_wikidata": "Q1234567",
+
+      "date": "X–XI ст.",
+      "period_wikidata": "Q8779",
+
+      "dimensions": "Висота 18 см, діаметр 15 см",
+      "weight": "420 г",
+      "origin": "Розкопки біля с. Іванівка, 2018 р.",
+      "description": "Ліпний горщик з характерним орнаментом...",
+
+      // === Контент для вкладок ===
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
+      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
+      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+    },
     {
       "id": "exp-001",
       "inventory": "МК-001",
       "title": "Горщик ліпний",
+
+      "type": "Горщик",
+      "type_wikidata": "Q168729",
+
       "altName": "Горщик для каші",
       "shortDesc": "X–XI ст., слов'янська кераміка",
+
       "material": "Глина",
+      "material_wikidata": "Q42222",
+
       "technique": "Ліплення від руки",
+      "technique_wikidata": "Q1234567",
+
       "date": "X–XI ст.",
+      "period_wikidata": "Q8779",
+
       "dimensions": "Висота 18 см, діаметр 15 см",
       "weight": "420 г",
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
-      "author": "",
-      "conservator": "Краєзнавчий музей",
-      "condition": "Добрий",
       "description": "Ліпний горщик з характерним орнаментом...",
-      "photos": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
-      "normalMaps": ["assets/normalmaps/Cactus_u0_v0_normal.png"],
-      "sketchfab": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
-      "volume2": "assets/models/Cactus.stl",
-      "video": "https://www.youtube.com/embed/dXMhLZ203-Y"
+
+      // === Контент для вкладок ===
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
+      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
+      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
     },
     {
-      "id": "exp-002",
-      "inventory": "МК-002",
+      "id": "exp-001",
+      "inventory": "МК-001",
       "title": "Горщик ліпний",
+
+      "type": "Горщик",
+      "type_wikidata": "Q168729",
+
       "altName": "Горщик для каші",
       "shortDesc": "X–XI ст., слов'янська кераміка",
+
       "material": "Глина",
+      "material_wikidata": "Q42222",
+
       "technique": "Ліплення від руки",
+      "technique_wikidata": "Q1234567",
+
       "date": "X–XI ст.",
+      "period_wikidata": "Q8779",
+
       "dimensions": "Висота 18 см, діаметр 15 см",
       "weight": "420 г",
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
-      "author": "",
-      "conservator": "Краєзнавчий музей",
-      "condition": "Добрий",
       "description": "Ліпний горщик з характерним орнаментом...",
-      "photos": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
-      "normalMaps": [],
-      "sketchfab": "",
-      "volume2": "",
-      "video": ""
+
+      // === Контент для вкладок ===
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
+      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
+      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
     },
     {
-      "id": "exp-003",
-      "inventory": "МК-003",
+      "id": "exp-001",
+      "inventory": "МК-001",
       "title": "Горщик ліпний",
+
+      "type": "Горщик",
+      "type_wikidata": "Q168729",
+
       "altName": "Горщик для каші",
       "shortDesc": "X–XI ст., слов'янська кераміка",
+
       "material": "Глина",
+      "material_wikidata": "Q42222",
+
       "technique": "Ліплення від руки",
+      "technique_wikidata": "Q1234567",
+
       "date": "X–XI ст.",
+      "period_wikidata": "Q8779",
+
       "dimensions": "Висота 18 см, діаметр 15 см",
       "weight": "420 г",
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
-      "author": "",
-      "conservator": "Краєзнавчий музей",
-      "condition": "Добрий",
       "description": "Ліпний горщик з характерним орнаментом...",
-      "photos": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
-      "normalMaps": ["assets/normalmaps/Cactus_u0_v0_normal.png"],
-      "sketchfab": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
-      "volume2": "assets/models/Cactus.stl",
-      "video": "assets/animations/mario-coins.gif"
+
+      // === Контент для вкладок ===
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
+      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
+      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+    },
+    {
+      "id": "exp-001",
+      "inventory": "МК-001",
+      "title": "Горщик ліпний",
+
+      "type": "Горщик",
+      "type_wikidata": "Q168729",
+
+      "altName": "Горщик для каші",
+      "shortDesc": "X–XI ст., слов'янська кераміка",
+
+      "material": "Глина",
+      "material_wikidata": "Q42222",
+
+      "technique": "Ліплення від руки",
+      "technique_wikidata": "Q1234567",
+
+      "date": "X–XI ст.",
+      "period_wikidata": "Q8779",
+
+      "dimensions": "Висота 18 см, діаметр 15 см",
+      "weight": "420 г",
+      "origin": "Розкопки біля с. Іванівка, 2018 р.",
+      "description": "Ліпний горщик з характерним орнаментом...",
+
+      // === Контент для вкладок ===
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
+      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
+      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+    },
+    {
+      "id": "exp-001",
+      "inventory": "МК-001",
+      "title": "Горщик ліпний",
+
+      "type": "Горщик",
+      "type_wikidata": "Q168729",
+
+      "altName": "Горщик для каші",
+      "shortDesc": "X–XI ст., слов'янська кераміка",
+
+      "material": "Глина",
+      "material_wikidata": "Q42222",
+
+      "technique": "Ліплення від руки",
+      "technique_wikidata": "Q1234567",
+
+      "date": "X–XI ст.",
+      "period_wikidata": "Q8779",
+
+      "dimensions": "Висота 18 см, діаметр 15 см",
+      "weight": "420 г",
+      "origin": "Розкопки біля с. Іванівка, 2018 р.",
+      "description": "Ліпний горщик з характерним орнаментом...",
+
+      // === Контент для вкладок ===
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
+      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
+      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+    },
+    {
+      "id": "exp-001",
+      "inventory": "МК-001",
+      "title": "Горщик ліпний",
+
+      "type": "Горщик",
+      "type_wikidata": "Q168729",
+
+      "altName": "Горщик для каші",
+      "shortDesc": "X–XI ст., слов'янська кераміка",
+
+      "material": "Глина",
+      "material_wikidata": "Q42222",
+
+      "technique": "Ліплення від руки",
+      "technique_wikidata": "Q1234567",
+
+      "date": "X–XI ст.",
+      "period_wikidata": "Q8779",
+
+      "dimensions": "Висота 18 см, діаметр 15 см",
+      "weight": "420 г",
+      "origin": "Розкопки біля с. Іванівка, 2018 р.",
+      "description": "Ліпний горщик з характерним орнаментом...",
+
+      // === Контент для вкладок ===
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
+      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
+      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+    },
+    {
+      "id": "exp-001",
+      "inventory": "МК-001",
+      "title": "Горщик ліпний",
+
+      "type": "Горщик",
+      "type_wikidata": "Q168729",
+
+      "altName": "Горщик для каші",
+      "shortDesc": "X–XI ст., слов'янська кераміка",
+
+      "material": "Глина",
+      "material_wikidata": "Q42222",
+
+      "technique": "Ліплення від руки",
+      "technique_wikidata": "Q1234567",
+
+      "date": "X–XI ст.",
+      "period_wikidata": "Q8779",
+
+      "dimensions": "Висота 18 см, діаметр 15 см",
+      "weight": "420 г",
+      "origin": "Розкопки біля с. Іванівка, 2018 р.",
+      "description": "Ліпний горщик з характерним орнаментом...",
+
+      // === Контент для вкладок ===
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
+      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
+      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+    },
+    {
+      "id": "exp-001",
+      "inventory": "МК-001",
+      "title": "Горщик ліпний",
+
+      "type": "Горщик",
+      "type_wikidata": "Q168729",
+
+      "altName": "Горщик для каші",
+      "shortDesc": "X–XI ст., слов'янська кераміка",
+
+      "material": "Глина",
+      "material_wikidata": "Q42222",
+
+      "technique": "Ліплення від руки",
+      "technique_wikidata": "Q1234567",
+
+      "date": "X–XI ст.",
+      "period_wikidata": "Q8779",
+
+      "dimensions": "Висота 18 см, діаметр 15 см",
+      "weight": "420 г",
+      "origin": "Розкопки біля с. Іванівка, 2018 р.",
+      "description": "Ліпний горщик з характерним орнаментом...",
+
+      // === Контент для вкладок ===
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
+      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
+      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+    },
+    {
+      "id": "exp-001",
+      "inventory": "МК-001",
+      "title": "Горщик ліпний",
+
+      "type": "Горщик",
+      "type_wikidata": "Q168729",
+
+      "altName": "Горщик для каші",
+      "shortDesc": "X–XI ст., слов'янська кераміка",
+
+      "material": "Глина",
+      "material_wikidata": "Q42222",
+
+      "technique": "Ліплення від руки",
+      "technique_wikidata": "Q1234567",
+
+      "date": "X–XI ст.",
+      "period_wikidata": "Q8779",
+
+      "dimensions": "Висота 18 см, діаметр 15 см",
+      "weight": "420 г",
+      "origin": "Розкопки біля с. Іванівка, 2018 р.",
+      "description": "Ліпний горщик з характерним орнаментом...",
+
+      // === Контент для вкладок ===
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
+      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
+      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+    },
+    {
+      "id": "exp-001",
+      "inventory": "МК-001",
+      "title": "Горщик ліпний",
+
+      "type": "Горщик",
+      "type_wikidata": "Q168729",
+
+      "altName": "Горщик для каші",
+      "shortDesc": "X–XI ст., слов'янська кераміка",
+
+      "material": "Глина",
+      "material_wikidata": "Q42222",
+
+      "technique": "Ліплення від руки",
+      "technique_wikidata": "Q1234567",
+
+      "date": "X–XI ст.",
+      "period_wikidata": "Q8779",
+
+      "dimensions": "Висота 18 см, діаметр 15 см",
+      "weight": "420 г",
+      "origin": "Розкопки біля с. Іванівка, 2018 р.",
+      "description": "Ліпний горщик з характерним орнаментом...",
+
+      // === Контент для вкладок ===
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
+      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
+      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+    },
+    {
+      "id": "exp-001",
+      "inventory": "МК-001",
+      "title": "Горщик ліпний",
+
+      "type": "Горщик",
+      "type_wikidata": "Q168729",
+
+      "altName": "Горщик для каші",
+      "shortDesc": "X–XI ст., слов'янська кераміка",
+
+      "material": "Глина",
+      "material_wikidata": "Q42222",
+
+      "technique": "Ліплення від руки",
+      "technique_wikidata": "Q1234567",
+
+      "date": "X–XI ст.",
+      "period_wikidata": "Q8779",
+
+      "dimensions": "Висота 18 см, діаметр 15 см",
+      "weight": "420 г",
+      "origin": "Розкопки біля с. Іванівка, 2018 р.",
+      "description": "Ліпний горщик з характерним орнаментом...",
+
+      // === Контент для вкладок ===
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
+      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
+      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
+    },
+    {
+      "id": "exp-001",
+      "inventory": "МК-001",
+      "title": "Горщик ліпний",
+
+      "type": "Горщик",
+      "type_wikidata": "Q168729",
+
+      "altName": "Горщик для каші",
+      "shortDesc": "X–XI ст., слов'янська кераміка",
+
+      "material": "Глина",
+      "material_wikidata": "Q42222",
+
+      "technique": "Ліплення від руки",
+      "technique_wikidata": "Q1234567",
+
+      "date": "X–XI ст.",
+      "period_wikidata": "Q8779",
+
+      "dimensions": "Висота 18 см, діаметр 15 см",
+      "weight": "420 г",
+      "origin": "Розкопки біля с. Іванівка, 2018 р.",
+      "description": "Ліпний горщик з характерним орнаментом...",
+
+      // === Контент для вкладок ===
+      "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],           // Зображення
+      "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],                       // Рельєф (normalMap)
+      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed", // Об'єм (Sketchfab)
+      "3D-II": "assets/models/Cactus.stl",                                                                // Об'єм#2 (STL або інше)
+      "4D": "assets/animations/mario-coins.gif"                                                                     // Відео або GIF
     }
   ]
 }
