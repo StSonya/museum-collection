@@ -123,143 +123,157 @@
       render();
     });
 
-    window.showDetail = function(id) {
-      const item = allItems.find(i => i.id === id);
-      if (!item) return;
+  window.showDetail = function(id) {
+  const item = allItems.find(i => i.id === id);
+  if (!item) return;
 
-      let modalHTML = `
-        <div class="modal fade" id="detailModal" tabindex="-1">
-          <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">${item.title}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-              </div>
-              <div class="modal-body">
-                                <ul class="nav nav-tabs mb-3">
-                  <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
-                  <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">2D</a></li>
-                  
-                  ${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-relief">2.5D</a></li>` : ''}
-                  
-                  ${item.sketchfab && item.sketchfab.trim() !== '' ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume">3D</a></li>` : ''}
-                  
-                  ${item.volume2 && item.volume2.trim() !== '' ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume2">3D-II</a></li>` : ''}
-                  
-                  ${item.video && item.video.trim() !== '' ? 
-                    `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-video">4D</a></li>` : ''}
-                </ul>
-                <div class="tab-content">
-                  <!-- 1D Опис -->
-                  <div class="tab-pane fade show active" id="tab-desc">
-                    <table class="table table-borderless">
-                      ${createField("Інвентарний номер", item.inventory)}
-                      ${createField("Назва", item.title)}
-                      ${createField("Альтернативна назва", item.altName)}
-                      ${createField("Дата", item.date)}
-                      ${createField("Період / культура", item.period)}
-                      ${createField("Матеріал", item.material)}
-                      ${createField("Техніка", item.technique)}
-                      ${createField("Розміри", item.dimensions)}
-                      ${createField("Вага", item.weight)}
-                      ${createField("Походження", item.origin)}
-                      ${createField("Автор", item.author)}
-                      ${createField("Зберігач", item.conservator)}
-                      ${createField("Стан", item.condition)}
-                    </table>
-                    <hr>
-                    <p><strong>Опис:</strong> ${item.description || '—'}</p>
-                  </div>
+  let modalHTML = `
+    <div class="modal fade" id="detailModal" tabindex="-1">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">${item.title}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
 
-                  <!-- 2D Зображення -->
-                  <div class="tab-pane fade" id="tab-photo">
-                    <div id="photoCarousel" class="carousel slide">
-                      <div class="carousel-inner">
-                        ${item.photos && item.photos.length > 0 
-                          ? item.photos.map((photo, index) => `
-                            <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                              <img src="${photo}" class="d-block w-100 rounded" alt="${item.title} — фото ${index + 1}">
-                            </div>
-                          `).join('')
-                          : `<div class="carousel-item active"><img src="assets/photos/Photo.png" class="d-block w-100 rounded" alt="Фото відсутнє"></div>`
-                        }
-                      </div>
-                      ${item.photos && item.photos.length > 1 ? `
-                      <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      </button>` : ''}
-                    </div>
-                  </div>
+            <ul class="nav nav-tabs mb-3">
+              <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
+              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">2D</a></li>
+              
+              ${item["2.5D"] && Array.isArray(item["2.5D"]) && item["2.5D"].length > 0 ? 
+                `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-relief">2.5D</a></li>` : ''}
+              
+              ${item["3D"] && typeof item["3D"] === 'string' && item["3D"].trim() !== '' ? 
+                `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume">3D</a></li>` : ''}
+              
+              ${item["3D-II"] && typeof item["3D-II"] === 'string' && item["3D-II"].trim() !== '' ? 
+                `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume2">3D-II</a></li>` : ''}
+              
+              ${item["4D"] && typeof item["4D"] === 'string' && item["4D"].trim() !== '' ? 
+                `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-video">4D</a></li>` : ''}
+            </ul>
 
-                             <!-- 2.5D Рельєф -->
-${item.normalMaps && Array.isArray(item.normalMaps) && item.normalMaps.length > 0 ? `
-<div class="tab-pane fade" id="tab-relief">
-  <div id="reliefCarousel-${item.id}" class="carousel slide">
-    <div class="carousel-inner">
-      ${item.normalMaps.map((normal, index) => `
-        <div class="carousel-item ${index === 0 ? 'active' : ''}">
-          <img src="${normal}" class="d-block w-100 rounded" alt="Рельєф ${index + 1}">
-        </div>
-      `).join('')}
-    </div>
-    
-    ${item.normalMaps.length > 1 ? `
-    <button class="carousel-control-prev" type="button" data-bs-target="#reliefCarousel-${item.id}" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#reliefCarousel-${item.id}" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    </button>` : ''}
-  </div>
-</div>` : ''}
+            <div class="tab-content">
 
-                  <!-- 3D Об'єм -->
-                  ${item.sketchfab && item.sketchfab.trim() !== '' ? `
-                  <div class="tab-pane fade" id="tab-volume" style="height:520px;">
-                    <iframe src="${item.sketchfab}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
-                  </div>` : ''}
-                  
-                  <!-- 3D Об'єм#2 (STL) -->
-                  ${item.volume2 && item.volume2.trim() !== '' ? `
-                  <div class="tab-pane fade" id="tab-volume2" style="height:520px;">
-                    <model-viewer 
-                      src="${item.volume2}" 
-                      alt="3D модель"
-                      camera-controls 
-                      auto-rotate 
-                      shadow-intensity="1"
-                      style="width:100%; height:100%; background:#f8f9fa;">
-                    </model-viewer>
-                  </div>` : ''}
+              <!-- 1D — Опис -->
+              <div class="tab-pane fade show active" id="tab-desc">
+                <table class="table table-borderless">
+                  ${createField("Інвентарний номер", item.inventory)}
+                  ${createField("Назва", item.title)}
+                  ${createField("Альтернативна назва", item.altName)}
+                  ${createField("Дата", item.date)}
+                  ${createField("Матеріал", item.material)}
+                  ${createField("Техніка", item.technique)}
+                  ${createField("Розміри", item.dimensions)}
+                  ${createField("Вага", item.weight)}
+                  ${createField("Походження", item.origin)}
+                  ${createField("Зберігач", item.conservator)}
+                  ${createField("Стан", item.condition)}
+                </table>
 
-                                <!-- 4D -->
-                  ${item.video && item.video.trim() !== '' ? `
-                  <div class="tab-pane fade" id="tab-video" style="height:520px; background:#000;">
-                    ${item.video.endsWith('.gif') || item.video.endsWith('.GIF') ?
-                      `<img src="${item.video}" style="width:100%; height:100%; object-fit:contain;" alt="GIF анімація">` :
-                      `<iframe src="${item.video}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>`
-                    }
-                  </div>` : ''}
+                <hr>
+                <p><strong>Опис:</strong> ${item.description || '—'}</p>
+
+                <!-- Wikidata посилання -->
+                <div class="mt-4 small">
+                  <strong>Wikidata:</strong><br>
+                  ${item.type_wikidata ? 
+                    `Тип: <a href="https://www.wikidata.org/wiki/${item.type_wikidata}" target="_blank" class="text-decoration-none">${item.type_wikidata}</a><br>` : ''}
+                  ${item.material_wikidata ? 
+                    `Матеріал: <a href="https://www.wikidata.org/wiki/${item.material_wikidata}" target="_blank" class="text-decoration-none">${item.material_wikidata}</a><br>` : ''}
+                  ${item.technique_wikidata ? 
+                    `Техніка: <a href="https://www.wikidata.org/wiki/${item.technique_wikidata}" target="_blank" class="text-decoration-none">${item.technique_wikidata}</a><br>` : ''}
+                  ${item.period_wikidata ? 
+                    `Період: <a href="https://www.wikidata.org/wiki/${item.period_wikidata}" target="_blank" class="text-decoration-none">${item.period_wikidata}</a>` : ''}
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+
+              <!-- 2D -->
+              <div class="tab-pane fade" id="tab-photo">
+                <div id="photoCarousel" class="carousel slide">
+                  <div class="carousel-inner">
+                    ${item["2D"] && Array.isArray(item["2D"]) && item["2D"].length > 0 
+                      ? item["2D"].map((photo, index) => `
+                        <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                          <img src="${photo}" class="d-block w-100 rounded" alt="${item.title} — фото ${index + 1}">
+                        </div>
+                      `).join('')
+                      : `<div class="carousel-item active"><img src="assets/photos/Photo.png" class="d-block w-100 rounded" alt="Фото відсутнє"></div>`
+                    }
+                  </div>
+                  ${item["2D"] && item["2D"].length > 1 ? `
+                  <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                  </button>` : ''}
+                </div>
               </div>
+
+              <!-- 2.5D -->
+              ${item["2.5D"] && Array.isArray(item["2.5D"]) && item["2.5D"].length > 0 ? `
+              <div class="tab-pane fade" id="tab-relief">
+                <div id="reliefCarousel-${item.id}" class="carousel slide">
+                  <div class="carousel-inner">
+                    ${item["2.5D"].map((normal, index) => `
+                      <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                        <img src="${normal}" class="d-block w-100 rounded" alt="Рельєф ${index + 1}">
+                      </div>
+                    `).join('')}
+                  </div>
+                  ${item["2.5D"].length > 1 ? `
+                  <button class="carousel-control-prev" type="button" data-bs-target="#reliefCarousel-${item.id}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#reliefCarousel-${item.id}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                  </button>` : ''}
+                </div>
+              </div>` : ''}
+
+              <!-- 3D -->
+              ${item["3D"] && typeof item["3D"] === 'string' && item["3D"].trim() !== '' ? `
+              <div class="tab-pane fade" id="tab-volume" style="height:520px;">
+                <iframe src="${item["3D"]}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
+              </div>` : ''}
+
+              <!-- 3D-II -->
+              ${item["3D-II"] && typeof item["3D-II"] === 'string' && item["3D-II"].trim() !== '' ? `
+              <div class="tab-pane fade" id="tab-volume2" style="height:520px;">
+                <model-viewer 
+                  src="${item["3D-II"]}" 
+                  camera-controls 
+                  auto-rotate 
+                  shadow-intensity="1"
+                  style="width:100%; height:100%; background:#f8f9fa;">
+                </model-viewer>
+              </div>` : ''}
+
+              <!-- 4D -->
+              ${item["4D"] && typeof item["4D"] === 'string' && item["4D"].trim() !== '' ? `
+              <div class="tab-pane fade" id="tab-video" style="height:520px; background:#000;">
+                ${item["4D"].endsWith('.gif') || item["4D"].endsWith('.GIF') ?
+                  `<img src="${item["4D"]}" style="width:100%; height:100%; object-fit:contain;" alt="Анімація">` :
+                  `<iframe src="${item["4D"]}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>`
+                }
+              </div>` : ''}
             </div>
           </div>
-        </div>`;
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
 
-      const old = document.getElementById('detailModal');
-      if (old) old.remove();
-      document.body.insertAdjacentHTML('beforeend', modalHTML);
-      new bootstrap.Modal(document.getElementById('detailModal')).show();
-    };
+  // Видаляємо старий модальний і вставляємо новий
+  const old = document.getElementById('detailModal');
+  if (old) old.remove();
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+  new bootstrap.Modal(document.getElementById('detailModal')).show();
+};
 
     function createField(label, value) {
       if (!value || value.toString().trim() === "") return "";
