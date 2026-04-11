@@ -318,7 +318,7 @@
 function createWikidataField(label, value, wikidataId) {
   if (!value || value.toString().trim() === "") return "";
   
-  if (wikidataId) {
+  if (wikidataId && wikidataId.trim() !== "") {
     return `<tr>
       <td><strong>${label}:</strong></td>
       <td>${value} 
