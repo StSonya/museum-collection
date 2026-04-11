@@ -179,36 +179,14 @@
 
             <div class="tab-content">
 
-              <!-- 1D — Опис -->
-              <div class="tab-pane fade show active" id="tab-desc">
-               <table class="table table-borderless">
-  ${createField("Інвентарний номер", item.inventory)}
-  ${createField("Назва", item.title)}
-  ${createField("Альтернативна назва", item.altName)}
-  ${createField("Дата", item.date)}
-  
-  ${createWikidataField("Матеріал", item.material, item.material_wikidata)}
-  ${createWikidataField("Техніка", item.technique, item.technique_wikidata)}
-  ${createWikidataField("Тип", item.type, item.type_wikidata)}
-  
-  ${createField("Розміри", item.dimensions)}
-  ${createField("Вага", item.weight)}
-  ${createField("Походження", item.origin)}
-  ${createField("Зберігач", item.conservator)}
-  ${createField("Стан", item.condition)}
-</table>
-
-                <hr>
-                <p><strong>Опис:</strong> ${item.description || '—'}</p>
-
                <!-- 1D — Опис -->
 <div class="tab-pane fade show active" id="tab-desc">
   <table class="table table-borderless">
     ${createField("Інвентарний номер", item.inventory)}
     ${createField("Назва", item.title)}
-    ${createField("Альтернативна назва", item.altName)}
-    ${createField("Дата", item.date)}
-    
+
+    ${createWikidataField ("Альтернативна назва", item.altName, item.altName_wikidata)}
+    ${ createWikidataField ("Дата", item.date, item.date_wikidata)}
     ${createWikidataField("Матеріал", item.material, item.material_wikidata)}
     ${createWikidataField("Техніка", item.technique, item.technique_wikidata)}
     ${createWikidataField("Тип", item.type, item.type_wikidata)}
@@ -329,7 +307,9 @@ function createWikidataField(label, value, wikidataId) {
       </td>
     </tr>`;
   }
-
+  
+  return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
+}
     window.onload = loadData;
   </script>
 
