@@ -18,7 +18,7 @@
     }
     .card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.12)!important;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.35)!important;
     }
     .card-img-top {
       width: 100%;
@@ -26,29 +26,29 @@
       object-fit: cover;
     }
     .museum-name { font-size: 1.1rem; }
-    /* === КРАЩІ СТРІЛКИ КАРУСЕЛІ === */
+  CSS/* === СТРІЛКИ КАРУСЕЛІ === */
 .carousel-control-prev,
 .carousel-control-next {
-  width: 45px;
-  height: 45px;
-  background-color: rgba(0, 0, 0, 0.55);
+  width: 42px;
+  height: 42px;
+  background-color: rgba(0, 0, 0, 0.35);     /* світлий темний фон */
   border-radius: 50%;
   top: 50%;
   transform: translateY(-50%);
-  opacity: 1;
+  opacity: 0.9;
 }
 
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.55);
+  opacity: 1;
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  width: 28px;
-  height: 28px;
-  filter: invert(1) brightness(2);   /* робить стрілку чисто білою */
-  background-size: 100% 100%;
+  width: 24px;          /* менша стрілка */
+  height: 24px;
+  filter: invert(1) brightness(2);   /* біла чітка стрілка */
 }
   </style>
 </head>
