@@ -113,7 +113,10 @@
       const pageItems = filteredItems.slice(start, end);
 
       pageItems.forEach(item => {
-        const photo = item.photos && item.photos[0] ? item.photos[0] : 'assets/photos/Photo.png';
+        // Беремо перше фото з масиву "2D" для прев'ю стрічки експонатів
+const photo = item["2D"] && Array.isArray(item["2D"]) && item["2D"].length > 0 
+              ? item["2D"][0] 
+              : 'assets/photos/Photo.png';
         const cardHTML = `
           <div class="col-12 col-md-6 col-lg-4 col-xl-3">
             <div class="card h-100 shadow-sm" style="cursor:pointer;" onclick="showDetail('${item.id}')">
