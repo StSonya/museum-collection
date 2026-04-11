@@ -194,7 +194,9 @@
   
   ${createField("Розміри", item.dimensions)}
   ${createField("Вага", item.weight)}
-  ${createField("Походження", item.origin)}
+ 
+  ${createWikidataField("Походження", item.origin, item.origin_wikidata)}
+  
   ${createField("Зберігач", item.conservator)}
   ${createField("Стан", item.condition)}
 </table>
