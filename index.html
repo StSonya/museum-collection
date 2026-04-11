@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Цифрова експозиція</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Google Model Viewer для STL -->
+<script src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" type="module"></script>
+  <style>
+    .card {
+      transition: all 0.25s ease;
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.12)!important;
+    }
+    .card-img-top {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+    .museum-name { font-size: 1.1rem; }
+    /* === СТРІЛКИ КАРУСЕЛІ — чорні стрілки + світло-сірі прозорі кружечки === */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 48px;
+  height: 48px;
+  background-color: rgba(240, 240, 240, 0.10);   /* світло-сірий фон, прозорість 10% */
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 1;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgba(220, 220, 220, 0.25);   /* трохи темніший при наведенні */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 26px;
+  height: 26px;
+  filter: brightness(0);                         /* робить стрілку повністю ЧОРНОЮ */
+}
+  </style>
+</head>
+<body class="bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom py-3 sticky-top">
+    <div class="container">
+      <span class="museum-name text-muted fs-5">Назва музею</span>
+      <div class="d-flex align-items-center gap-3 ms-auto">
+        <input type="text" id="searchInput" class="form-control" placeholder="Пошук за назвою або інвентарним номером" style="width: 360px;">
+        <a href="https://твій-музей-сайт.ua" class="btn btn-outline-secondary" target="_blank">Головна</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    <h1 class="fw-light text-center mb-5">Експозиція</h1>
+    <div id="exhibitsGrid" class="row justify-content-center g-4"></div>
+    
+    <div class="text-center mt-5">
+      <button id="loadMoreBtn" class="btn btn-primary btn-lg px-5">Показати ще</button>
+    </div>
+    <div id="pagination" class="d-flex justify-content-center gap-3 mt-4"></div>
+  </div>
+
+  <script>
+    let allItems = [];
+    let filteredItems = [];
+    let currentPage = 1;
+    const itemsPerPage = 12;
+
+    async function loadData() {
+      try {
+        const res = await fetch('data.json?' + new Date().getTime());
+        const data = await res.json();
+        allItems = data.collection || [];
+        filteredItems = [...allItems];
+        render();
+      } catch (e) {
+        console.error("Помилка завантаження data.json", e);
+      }
+    }
+
+    function render() {
+      const grid = document.getElementById('exhibitsGrid');
+      grid.innerHTML = '';
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageItems = filteredItems.slice(start, end);
+
+      pageItems.forEach(item => {
+        const photo = item.photos && item.photos[0] ? item.photos[0] : 'assets/photos/Photo.png';
+        const cardHTML = `
+          <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="card h-100 shadow-sm" style="cursor:pointer;" onclick="showDetail('${item.id}')">
+              <img src="${photo}" class="card-img-top" alt="${item.title}">
+              <div class="card-body text-center">
+                <small class="text-muted">${item.inventory}</small>
+                <h5 class="card-title mt-2">${item.title}</h5>
+                <p class="card-text text-muted small">${item.shortDesc || ''}</p>
+              </div>
+            </div>
+          </div>`;
+        grid.insertAdjacentHTML('beforeend', cardHTML);
+      });
+
+      updatePagination();
+      document.getElementById('loadMoreBtn').style.display = (end < filteredItems.length) ? 'inline-block' : 'none';
+    }
+
+    function updatePagination() {
+      const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+      let html = '';
+      if (totalPages > 1) {
+        html += `<button class="btn btn-outline-secondary px-4" onclick="prevPage()" ${currentPage===1?'disabled':''}>Попередні</button>`;
+        html += `<span class="align-self-center mx-4">Сторінка ${currentPage} з ${totalPages}</span>`;
+        html += `<button class="btn btn-outline-secondary px-4" onclick="nextPage()" ${currentPage===totalPages?'disabled':''}>Наступні</button>`;
+      }
+      document.getElementById('pagination').innerHTML = html;
+    }
+
+    window.prevPage = () => { if (currentPage > 1) { currentPage--; render(); } };
+    window.nextPage = () => { if (currentPage < Math.ceil(filteredItems.length / itemsPerPage)) { currentPage++; render(); } };
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase().trim();
+      filteredItems = allItems.filter(item =>
+        (item.title || '').toLowerCase().includes(term) ||
+        (item.inventory || '').toLowerCase().includes(term)
+      );
+      currentPage = 1;
+      render();
+    });
+
+    document.getElementById('loadMoreBtn').addEventListener('click', () => {
+      currentPage++;
+      render();
+    });
+
+  window.showDetail = function(id) {
+  const item = allItems.find(i => i.id === id);
+  if (!item) return;
+
+  let modalHTML = `
+    <div class="modal fade" id="detailModal" tabindex="-1">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">${item.title}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+
+            <ul class="nav nav-tabs mb-3">
+              <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#tab-desc">Опис</a></li>
+              <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-photo">2D</a></li>
+              
+              ${item["2.5D"] && Array.isArray(item["2.5D"]) && item["2.5D"].length > 0 ? 
+                `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-relief">2.5D</a></li>` : ''}
+              
+              ${item["3D"] && typeof item["3D"] === 'string' && item["3D"].trim() !== '' ? 
+                `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume">3D</a></li>` : ''}
+              
+              ${item["3D-II"] && typeof item["3D-II"] === 'string' && item["3D-II"].trim() !== '' ? 
+                `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-volume2">3D-II</a></li>` : ''}
+              
+              ${item["4D"] && typeof item["4D"] === 'string' && item["4D"].trim() !== '' ? 
+                `<li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#tab-video">4D</a></li>` : ''}
+            </ul>
+
+            <div class="tab-content">
+
+               <!-- 1D — Опис -->
+<div class="tab-pane fade show active" id="tab-desc">
+<table class="table table-borderless">
+  ${createField("Інвентарний номер", item.inventory)}
+  ${createField("Назва", item.title)}
+  
+  ${createWikidataField("Альтернативна назва", item.altName, item.altName_wikidata)}
+  ${createWikidataField("Дата", item.date, item.date_wikidata)}
+  
+  ${createWikidataField("Матеріал", item.material, item.material_wikidata)}
+  ${createWikidataField("Техніка", item.technique, item.technique_wikidata)}
+  ${createWikidataField("Тип", item.type, item.type_wikidata)}
+  
+  ${createField("Розміри", item.dimensions)}
+  ${createField("Вага", item.weight)}
+  ${createField("Походження", item.origin)}
+  ${createField("Зберігач", item.conservator)}
+  ${createField("Стан", item.condition)}
+</table>
+  <hr>
+  <p><strong>Опис:</strong> ${item.description || '—'}</p>
+</div>
+
+              <!-- 2D -->
+              <div class="tab-pane fade" id="tab-photo">
+                <div id="photoCarousel" class="carousel slide">
+                  <div class="carousel-inner">
+                    ${item["2D"] && Array.isArray(item["2D"]) && item["2D"].length > 0 
+                      ? item["2D"].map((photo, index) => `
+                        <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                          <img src="${photo}" class="d-block w-100 rounded" alt="${item.title} — фото ${index + 1}">
+                        </div>
+                      `).join('')
+                      : `<div class="carousel-item active"><img src="assets/photos/Photo.png" class="d-block w-100 rounded" alt="Фото відсутнє"></div>`
+                    }
+                  </div>
+                  ${item["2D"] && item["2D"].length > 1 ? `
+                  <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                  </button>` : ''}
+                </div>
+              </div>
+
+              <!-- 2.5D -->
+              ${item["2.5D"] && Array.isArray(item["2.5D"]) && item["2.5D"].length > 0 ? `
+              <div class="tab-pane fade" id="tab-relief">
+                <div id="reliefCarousel-${item.id}" class="carousel slide">
+                  <div class="carousel-inner">
+                    ${item["2.5D"].map((normal, index) => `
+                      <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                        <img src="${normal}" class="d-block w-100 rounded" alt="Рельєф ${index + 1}">
+                      </div>
+                    `).join('')}
+                  </div>
+                  ${item["2.5D"].length > 1 ? `
+                  <button class="carousel-control-prev" type="button" data-bs-target="#reliefCarousel-${item.id}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#reliefCarousel-${item.id}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                  </button>` : ''}
+                </div>
+              </div>` : ''}
+
+              <!-- 3D -->
+              ${item["3D"] && typeof item["3D"] === 'string' && item["3D"].trim() !== '' ? `
+              <div class="tab-pane fade" id="tab-volume" style="height:520px;">
+                <iframe src="${item["3D"]}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
+              </div>` : ''}
+
+              <!-- 3D-II -->
+              ${item["3D-II"] && typeof item["3D-II"] === 'string' && item["3D-II"].trim() !== '' ? `
+              <div class="tab-pane fade" id="tab-volume2" style="height:520px;">
+                <model-viewer 
+                  src="${item["3D-II"]}" 
+                  camera-controls 
+                  auto-rotate 
+                  shadow-intensity="1"
+                  style="width:100%; height:100%; background:#f8f9fa;">
+                </model-viewer>
+              </div>` : ''}
+
+              <!-- 4D -->
+              ${item["4D"] && typeof item["4D"] === 'string' && item["4D"].trim() !== '' ? `
+              <div class="tab-pane fade" id="tab-video" style="height:520px; background:#000;">
+                ${item["4D"].endsWith('.gif') || item["4D"].endsWith('.GIF') ?
+                  `<img src="${item["4D"]}" style="width:100%; height:100%; object-fit:contain;" alt="Анімація">` :
+                  `<iframe src="${item["4D"]}" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>`
+                }
+              </div>` : ''}
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  // Видаляємо старий модальний і вставляємо новий
+  const old = document.getElementById('detailModal');
+  if (old) old.remove();
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+  new bootstrap.Modal(document.getElementById('detailModal')).show();
+};
+
+    function createField(label, value) {
+      if (!value || value.toString().trim() === "") return "";
+      return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
+    }
+    // Маленькі кнопочки на Wikidata
+function createWikidataField(label, value, wikidataId) {
+  if (!value || value.toString().trim() === "") return "";
+  
+  if (wikidataId && wikidataId.trim() !== "") {
+    return `<tr>
+      <td><strong>${label}:</strong></td>
+      <td>${value} 
+        <a href="https://www.wikidata.org/wiki/${wikidataId}" 
+           target="_blank" 
+           class="text-muted ms-2 small" 
+           title="Перейти на Wikidata">🔗</a>
+      </td>
+    </tr>`;
+  }
+  
+  return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
+}
+    window.onload = loadData;
+  </script>
+
+  <footer class="bg-white border-top py-4 text-center text-muted small">
+    © [Назва музею], 2026. Всі права захищені.<br>
+    Матеріали поширюються за ліцензією 
+    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" class="text-muted">CC BY-NC-ND 4.0</a>
+  </footer>
+</body>
+</html>
