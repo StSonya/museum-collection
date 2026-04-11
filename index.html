@@ -26,6 +26,31 @@
       object-fit: cover;
     }
     .museum-name { font-size: 1.1rem; }
+    /* Покращення стрілок каруселі */
+.carousel-control-prev,
+.carousel-control-next {
+  background-color: rgba(0, 0, 0, 0.4);   /* темний фон під стрілкою */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.9;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: white;           /* робимо саму стрілку білою */
+  filter: invert(1) brightness(2);   /* робить стрілку чіткою і контрастною */
+  width: 28px;
+  height: 28px;
+}
   </style>
 </head>
 <body class="bg-light">
