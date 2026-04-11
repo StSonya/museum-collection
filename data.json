@@ -24,7 +24,10 @@
 
       "dimensions": "Висота 18 см, діаметр 15 см",
       "weight": "420 г",
+  
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
+      "origin_wikidata": "Q1234567"
+  
       "description": "Ліпний горщик з характерним орнаментом...",
 
       "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
