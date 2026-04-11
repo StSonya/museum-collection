@@ -184,8 +184,9 @@
 <table class="table table-borderless">
   ${createField("Інвентарний номер", item.inventory)}
   ${createField("Назва", item.title)}
-  ${createField("Альтернативна назва", item.altName)}
-  ${createField("Дата", item.date)}
+  
+  ${createWikidataField("Альтернативна назва", item.altName, item.altName_wikidata)}
+  ${createWikidataField("Дата", item.date, item.date_wikidata)}
   
   ${createWikidataField("Матеріал", item.material, item.material_wikidata)}
   ${createWikidataField("Техніка", item.technique, item.technique_wikidata)}
@@ -197,7 +198,6 @@
   ${createField("Зберігач", item.conservator)}
   ${createField("Стан", item.condition)}
 </table>
-
   <hr>
   <p><strong>Опис:</strong> ${item.description || '—'}</p>
 </div>
