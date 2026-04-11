@@ -26,29 +26,29 @@
       object-fit: cover;
     }
     .museum-name { font-size: 1.1rem; }
-  CSS/* === КРАЩІ СТРІЛКИ КАРУСЕЛІ === */
+  CSS/* === СТРІЛКИ КАРУСЕЛІ === */
 .carousel-control-prev,
 .carousel-control-next {
-  width: 55px;
-  height: 55px;
-  background-color: rgba(0, 0, 0, 0.55);
-  border-radius: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 1;
+  width: 55px;                    /* ← ширина кнопки */
+  height: 55px;                   /* ← висота кнопки */
+  background-color: rgba(0, 0, 0, 0.55);   /* ← колір фону кнопки */
+  border-radius: 50%;             /* ← робить кнопку круглою */
+  top: 50%;                       /* ← вертикальне вирівнювання */
+  transform: translateY(-50%);    /* ← точно по центру по висоті */
+  opacity: 1;                     /* ← прозорість кнопки (1 = повністю видно) */
 }
 
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.85);   /* ← колір фону при наведенні */
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  width: 32px;
-  height: 32px;
-  filter: invert(1) brightness(2);   /* робить стрілку чисто білою */
-  background-size: 100% 100%;
+  width: 32px;                    /* ← ширина самої стрілки */
+  height: 32px;                   /* ← висота самої стрілки */
+  filter: invert(1) brightness(2); /* ← робить стрілку білою і контрастною */
+  background-size: 100% 100%;     /* ← масштабування іконки */
 }
   </style>
 </head>
