@@ -198,19 +198,28 @@
                 <hr>
                 <p><strong>Опис:</strong> ${item.description || '—'}</p>
 
-                <!-- Wikidata посилання -->
-                <div class="mt-4 small">
-                  <strong>Wikidata:</strong><br>
-                  ${item.type_wikidata ? 
-                    `Тип: <a href="https://www.wikidata.org/wiki/${item.type_wikidata}" target="_blank" class="text-decoration-none">${item.type_wikidata}</a><br>` : ''}
-                  ${item.material_wikidata ? 
-                    `Матеріал: <a href="https://www.wikidata.org/wiki/${item.material_wikidata}" target="_blank" class="text-decoration-none">${item.material_wikidata}</a><br>` : ''}
-                  ${item.technique_wikidata ? 
-                    `Техніка: <a href="https://www.wikidata.org/wiki/${item.technique_wikidata}" target="_blank" class="text-decoration-none">${item.technique_wikidata}</a><br>` : ''}
-                  ${item.period_wikidata ? 
-                    `Період: <a href="https://www.wikidata.org/wiki/${item.period_wikidata}" target="_blank" class="text-decoration-none">${item.period_wikidata}</a>` : ''}
-                </div>
-              </div>
+               <!-- 1D — Опис -->
+<div class="tab-pane fade show active" id="tab-desc">
+  <table class="table table-borderless">
+    ${createField("Інвентарний номер", item.inventory)}
+    ${createField("Назва", item.title)}
+    ${createField("Альтернативна назва", item.altName)}
+    ${createField("Дата", item.date)}
+    
+    ${createWikidataField("Матеріал", item.material, item.material_wikidata)}
+    ${createWikidataField("Техніка", item.technique, item.technique_wikidata)}
+    ${createWikidataField("Тип", item.type, item.type_wikidata)}
+    
+    ${createField("Розміри", item.dimensions)}
+    ${createField("Вага", item.weight)}
+    ${createField("Походження", item.origin)}
+    ${createField("Зберігач", item.conservator)}
+    ${createField("Стан", item.condition)}
+  </table>
+
+  <hr>
+  <p><strong>Опис:</strong> ${item.description || '—'}</p>
+</div>
 
               <!-- 2D -->
               <div class="tab-pane fade" id="tab-photo">
@@ -302,7 +311,24 @@
       if (!value || value.toString().trim() === "") return "";
       return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
     }
-
+    // Маленькі кнопочки на Wikidata
+function createWikidataField(label, value, wikidataId) {
+  if (!value || value.toString().trim() === "") return "";
+  
+  if (wikidataId) {
+    return `<tr>
+      <td><strong>${label}:</strong></td>
+      <td>${value} 
+        <a href="https://www.wikidata.org/wiki/${wikidataId}" 
+           target="_blank" 
+           class="text-muted ms-2 small" 
+           title="Перейти на Wikidata">🔗</a>
+      </td>
+    </tr>`;
+  }
+  
+  return `<tr><td><strong>${label}:</strong></td><td>${value}</td></tr>`;
+}
     window.onload = loadData;
   </script>
 
