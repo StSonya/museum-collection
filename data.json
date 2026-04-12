@@ -50,6 +50,9 @@
       "altName": "Горщик для каші",
       "shortDesc": "X–XI ст., слов'янська кераміка",
 
+      "category": "рослини",
+      "sortOrder": 3010,
+
       "material": "Глина",
       "material_wikidata": "Q42222",
 
