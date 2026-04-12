@@ -4,15 +4,15 @@
       "id": "exp-001",
       "inventory": "МК-001",
       "title": "Горщик ліпний",
-
+  
+  "category": "херсонес",
+  "sortOrder": 1010,
+  
       "type": "Горщик",
       "type_wikidata": "Q168729",
 
       "altName": "Горщик для каші",
-      "altName_wikidata": "Q25294",
-
-                                                   "category": "херсонес",
-                                                   "sortOrder": 1010,
+      "altName_wikidata": "Q25294",                                              
   
       "shortDesc": "X–XI ст., слов'янська кераміка",
 
@@ -43,6 +43,9 @@
       "id": "exp-002",
       "inventory": "МК-002",
       "title": "Горщик ліпний",
+
+  "category": "херсонес",
+  "sortOrder": 1020,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
