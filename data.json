@@ -32,7 +32,7 @@
 
       "2D": ["assets/photos/Cactus-Main.png", "assets/photos/Photo.png"],
       "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
-      "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
+      "3D": "https://sketchfab.com/models/55b3c08e787a4b378c13e96a15879a8f/embed",
       "3D-II": "assets/models/Coin2-2.glb",
       "4D": "assets/animations/mario-coins.gif"
     },
