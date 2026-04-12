@@ -108,51 +108,86 @@
       }
     }
 
-  function render() {
-  const grid = document.getElementById('exhibitsGrid');
-  grid.innerHTML = '';
+      function render() {
+      const grid = document.getElementById('exhibitsGrid');
+      grid.innerHTML = '';
 
-  // === СОРТУВАННЯ: спочатку за категорією, потім за sortOrder ===
-  const sortedItems = [...filteredItems].sort((a, b) => {
-    // 1. Сортуємо за категорією (алфавітно)
-    const catA = (a.category || '').toLowerCase();
-    const catB = (b.category || '').toLowerCase();
-    if (catA !== catB) return catA.localeCompare(catB, 'uk');
+      // Сортуємо filteredItems: спочатку за категорією, потім за sortOrder
+      const sortedItems = [...filteredItems].sort((a, b) => {
+        const catA = (a.category || '').toLowerCase();
+        const catB = (b.category || '').toLowerCase();
+        if (catA !== catB) return catA.localeCompare(catB, 'uk');
 
-    // 2. Всередині категорії сортуємо за sortOrder (число)
-    const orderA = parseFloat(a.sortOrder) || 999999;
-    const orderB = parseFloat(b.sortOrder) || 999999;
-    return orderA - orderB;
-  });
+        const orderA = parseFloat(a.sortOrder) || 999999;
+        const orderB = parseFloat(b.sortOrder) || 999999;
+        return orderA - orderB;
+      });
 
-  const start = (currentPage - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  const pageItems = sortedItems.slice(start, end);
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageItems = sortedItems.slice(start, end);
 
-  pageItems.forEach(item => {
-    const photo = item["2D"] && item["2D"][0] ? item["2D"][0] : 'assets/photos/Photo.png';
+      pageItems.forEach(item => {
+        // Беремо перше фото з масиву "2D"
+        const photo = item["2D"] && Array.isArray(item["2D"]) && item["2D"].length > 0
+                      ? item["2D"][0]
+                      : 'assets/photos/Photo.png';
 
-    const cardHTML = `
-      <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-        <div class="card h-100 shadow-sm" style="cursor:pointer;" onclick="showDetail('${item.id}')">
-          <img src="${photo}" class="card-img-top" alt="${item.title}">
-          <div class="card-body text-center">
-            <small class="text-muted">${item.inventory}</small>
-            <h5 class="card-title mt-2">${item.title}</h5>
-            <p class="card-text text-muted small">${item.shortDesc || ''}</p>
-          </div>
-        </div>
-      </div>`;
-    grid.insertAdjacentHTML('beforeend', cardHTML);
-  });
+        const cardHTML = `
+          <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="card h-100 shadow-sm" style="cursor:pointer;" onclick="showDetail('${item.id}')">
+              <img src="${photo}" class="card-img-top" alt="${item.title}">
+              <div class="card-body text-center">
+                <small class="text-muted">${item.inventory}</small>
+                <h5 class="card-title mt-2">${item.title}</h5>
+                <p class="card-text text-muted small">${item.shortDesc || ''}</p>
+              </div>
+            </div>
+          </div>`;
+        grid.insertAdjacentHTML('beforeend', cardHTML);
+      });
 
-  updatePagination();
-  document.getElementById('loadMoreBtn').style.display = (end < sortedItems.length) ? 'inline-block' : 'none';
-}
+      updatePagination(sortedItems.length);   // ← передаємо довжину відсортованого масиву
+      document.getElementById('loadMoreBtn').style.display = (end < sortedItems.length) ? 'inline-block' : 'none';
+    }
+
+    function updatePagination(totalFiltered) {
+      const totalPages = Math.ceil(totalFiltered / itemsPerPage);
+      let html = '';
+      if (totalPages > 1) {
+        html += `<button class="btn btn-outline-secondary px-4" onclick="prevPage()" ${currentPage===1?'disabled':''}>Попередні</button>`;
+        html += `<span class="align-self-center mx-4">Сторінка ${currentPage} з ${totalPages}</span>`;
+        html += `<button class="btn btn-outline-secondary px-4" onclick="nextPage()" ${currentPage===totalPages?'disabled':''}>Наступні</button>`;
+      }
+      document.getElementById('pagination').innerHTML = html;
+    }
+
+    window.prevPage = () => { 
+      if (currentPage > 1) { 
+        currentPage--; 
+        render(); 
+      } 
+    };
+
+    window.nextPage = () => { 
+      if (currentPage < Math.ceil(filteredItems.length / itemsPerPage)) { 
+        currentPage++; 
+        render(); 
+      } 
+    };
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase().trim();
+      filteredItems = allItems.filter(item =>
+        (item.title || '').toLowerCase().includes(term) ||
+        (item.inventory || '').toLowerCase().includes(term)
+      );
+      currentPage = 1;
+      render();
+    });
 
     document.getElementById('loadMoreBtn').addEventListener('click', () => {
       currentPage++;
-      
       render();
     });
 
