@@ -109,47 +109,45 @@
     }
 
       function render() {
-      const grid = document.getElementById('exhibitsGrid');
-      grid.innerHTML = '';
+  const grid = document.getElementById('exhibitsGrid');
+  grid.innerHTML = '';
 
-      // Сортуємо filteredItems: спочатку за категорією, потім за sortOrder
-      const sortedItems = [...filteredItems].sort((a, b) => {
-        const catA = (a.category || '').toLowerCase();
-        const catB = (b.category || '').toLowerCase();
-        if (catA !== catB) return catA.localeCompare(catB, 'uk');
+  const sortedItems = [...filteredItems].sort((a, b) => {
+    const catA = (a.category || '').toLowerCase();
+    const catB = (b.category || '').toLowerCase();
+    if (catA !== catB) return catA.localeCompare(catB, 'uk');
 
-        const orderA = parseFloat(a.sortOrder) || 999999;
-        const orderB = parseFloat(b.sortOrder) || 999999;
-        return orderA - orderB;
-      });
+    const orderA = parseFloat(a.sortOrder) || 999999;
+    const orderB = parseFloat(b.sortOrder) || 999999;
+    return orderA - orderB;
+  });
 
-      const start = (currentPage - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
-      const pageItems = sortedItems.slice(start, end);
+  const start = (currentPage - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  const pageItems = sortedItems.slice(start, end);
 
-      pageItems.forEach(item => {
-        // Беремо перше фото з масиву "2D"
-        const photo = item["2D"] && Array.isArray(item["2D"]) && item["2D"].length > 0
-                      ? item["2D"][0]
-                      : 'assets/photos/Photo.png';
+  pageItems.forEach(item => {
+    const photo = item["2D"] && Array.isArray(item["2D"]) && item["2D"].length > 0
+                  ? item["2D"][0]
+                  : 'assets/photos/Photo.png';
 
-        const cardHTML = `
-          <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-            <div class="card h-100 shadow-sm" style="cursor:pointer;" onclick="showDetail('${item.id}')">
-              <img src="${photo}" class="card-img-top" alt="${item.title}">
-              <div class="card-body text-center">
-                <small class="text-muted">${item.inventory}</small>
-                <h5 class="card-title mt-2">${item.title}</h5>
-                <p class="card-text text-muted small">${item.shortDesc || ''}</p>
-              </div>
-            </div>
-          </div>`;
-        grid.insertAdjacentHTML('beforeend', cardHTML);
-      });
+    const cardHTML = `
+      <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+        <div class="card h-100 shadow-sm" style="cursor:pointer;" onclick="showDetail('${item.id}')">
+          <img src="${photo}" class="card-img-top" alt="${item.title}">
+          <div class="card-body text-center">
+            <small class="text-muted">${item.inventory}</small>
+            <h5 class="card-title mt-2">${item.title}</h5>
+            <p class="card-text text-muted small">${item.shortDesc || ''}</p>
+          </div>
+        </div>
+      </div>`;
+    grid.insertAdjacentHTML('beforeend', cardHTML);
+  });
 
-      updatePagination(sortedItems.length);   // ← передаємо довжину відсортованого масиву
-      document.getElementById('loadMoreBtn').style.display = (end < sortedItems.length) ? 'inline-block' : 'none';
-    }
+  updatePagination(sortedItems.length);
+  document.getElementById('loadMoreBtn').style.display = (end < sortedItems.length) ? 'inline-block' : 'none';
+}
 
     function updatePagination(totalFiltered) {
       const totalPages = Math.ceil(totalFiltered / itemsPerPage);
