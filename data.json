@@ -5,8 +5,8 @@
       "inventory": "МК-001",
       "title": "Горщик ліпний",
   
-  "category": "херсонес",
-  "sortOrder": 1010,
+  "category": "100-херсонес",
+  "sortOrder": 10100,
   
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -48,8 +48,8 @@
       "inventory": "МК-002",
       "title": "Горщик ліпний",
 
-  "category": "херсонес",
-  "sortOrder": 1020,
+  "category": "100-херсонес",
+  "sortOrder": 10200,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -86,8 +86,8 @@
       "inventory": "МК-003",
       "title": "Горщик ліпний",
 
-"category": "кактуси",
-"sortOrder": 3080,
+"category": "300-кактуси",
+"sortOrder": 30800,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -124,8 +124,8 @@
       "inventory": "МК-004",
       "title": "Горщик ліпний",
 
-"category": "кактуси",
-"sortOrder": 3090,
+"category": "300-кактуси",
+"sortOrder": 30900,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -162,8 +162,8 @@
       "inventory": "МК-005",
       "title": "Горщик ліпний",
 
-"category": "кактуси",
-"sortOrder": 3100,
+"category": "300-кактуси",
+"sortOrder": 31000,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -200,8 +200,8 @@
       "inventory": "МК-006",
       "title": "Горщик ліпний",
 
-  "category": "херсонес",
-  "sortOrder": 1030,
+  "category": "100-херсонес",
+  "sortOrder": 10300,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -238,8 +238,8 @@
       "inventory": "МК-007",
       "title": "Горщик ліпний",
 
-"category": "кактуси",
-"sortOrder": 3010,
+"category": "300-кактуси",
+"sortOrder": 30100,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -276,8 +276,8 @@
       "inventory": "МК-008",
       "title": "Горщик ліпний",
 
-"category": "кактуси",
-"sortOrder": 3020,
+"category": "300-кактуси",
+"sortOrder": 30200,
 
 
       "type": "Горщик",
@@ -315,8 +315,8 @@
       "inventory": "МК-009",
       "title": "Горщик ліпний",
 
-"category": "кактуси",
-"sortOrder": 3030,
+"category": "300-кактуси",
+"sortOrder": 30300,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -353,8 +353,8 @@
       "inventory": "МК-0010",
       "title": "Горщик ліпний",
 
-"category": "кактуси",
-"sortOrder": 3040,
+"category": "300-кактуси",
+"sortOrder": 30400,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -391,8 +391,8 @@
       "inventory": "МК-0011",
       "title": "Горщик ліпний",
 
-"category": "кактуси",
-"sortOrder": 3050,
+"category": "300-кактуси",
+"sortOrder": 30500,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -429,8 +429,8 @@
       "inventory": "МК-0012",
       "title": "Горщик ліпний",
 
-"category": "кактуси",
-"sortOrder": 3060,
+"category": "300-кактуси",
+"sortOrder": 30600,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -467,8 +467,8 @@
       "inventory": "МК-0013",
       "title": "Горщик ліпний",
 
-"category": "кактуси",
-"sortOrder": 3070,
+"category": "300-кактуси",
+"sortOrder": 30700,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
