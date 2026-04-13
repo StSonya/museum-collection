@@ -78,7 +78,7 @@
       "2.5D": ["assets/normalmaps/RTI-Coin.png", "assets/normalmaps/Example_RTI-2.png"],
       "3D": "https://sketchfab.com/models/55b3c08e787a4b378c13e96a15879a8f/embed",
       "3D-II": "assets/models/Coin2-2.glb",
-      "4D": "assets/animations/die-casting-process-1f2d594d.gif",
+      "4D": "assets/animations/die_paduan_nero2.gif",
       "sources": [
   "Головне фото: Горщик ліпний. Автор — Іван Петренко. Wikimedia Commons, CC BY-SA 4.0. https://commons.wikimedia.org/wiki/File:Gorshok_lipniy_001.jpg",
   "Карта нормалей: Автор — Сергій Коваленко. Zenodo, CC0 1.0. https://zenodo.org/record/1234567"
