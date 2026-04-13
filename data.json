@@ -33,7 +33,7 @@
   
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      "2D": ["assets/photos/Coin_Scale_Low.jpg"],
+      "2D": ["assets/photos/Coin_Scale_Low.jpg", "assets/photos/Coin_Obverse.jpg", "assets/photos/Coin_Reverse_.jpg"],
       "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
       "3D": "https://sketchfab.com/models/55b3c08e787a4b378c13e96a15879a8f/embed",
       "3D-II": "assets/models/Coin2-2.glb",
@@ -74,7 +74,7 @@
       "origin": "Розкопки біля с. Іванівка, 2018 р.",
       "description": "Ліпний горщик з характерним орнаментом...",
 
-      "2D": ["assets/photos/Coin_Scale_Low.jpg"],
+      "2D": ["assets/photos/Coin_Scale_Low.jpg", "assets/photos/Coin_Obverse.jpg", "assets/photos/Coin_Reverse_.jpg"],
       "2.5D": ["assets/normalmaps/Cactus_u0_v0_normal.png", "assets/photos/Photo.png"],
       "3D": "https://sketchfab.com/models/33556cd311d64a0c924c091bf750cd45/embed",
       "3D-II": "assets/models/Cactus.glb",
