@@ -57,9 +57,6 @@
       "altName": "Горщик для каші",
       "shortDesc": "X–XI ст., слов'янська кераміка",
 
-      "category": "рослини",
-      "sortOrder": 3010,
-
       "material": "Глина",
       "material_wikidata": "Q42222",
 
@@ -88,6 +85,9 @@
       "id": "exp-003",
       "inventory": "МК-003",
       "title": "Горщик ліпний",
+
+"category": "кактуси",
+"sortOrder": 3080,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -124,6 +124,9 @@
       "inventory": "МК-004",
       "title": "Горщик ліпний",
 
+"category": "кактуси",
+"sortOrder": 3090,
+
       "type": "Горщик",
       "type_wikidata": "Q168729",
 
@@ -158,6 +161,9 @@
       "id": "exp-005",
       "inventory": "МК-005",
       "title": "Горщик ліпний",
+
+"category": "кактуси",
+"sortOrder": 3100,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -270,6 +276,10 @@
       "inventory": "МК-008",
       "title": "Горщик ліпний",
 
+"category": "кактуси",
+"sortOrder": 3020,
+
+
       "type": "Горщик",
       "type_wikidata": "Q168729",
 
@@ -304,6 +314,9 @@
       "id": "exp-009",
       "inventory": "МК-009",
       "title": "Горщик ліпний",
+
+"category": "кактуси",
+"sortOrder": 3030,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -340,6 +353,9 @@
       "inventory": "МК-0010",
       "title": "Горщик ліпний",
 
+"category": "кактуси",
+"sortOrder": 3040,
+
       "type": "Горщик",
       "type_wikidata": "Q168729",
 
@@ -374,6 +390,9 @@
       "id": "exp-0011",
       "inventory": "МК-0011",
       "title": "Горщик ліпний",
+
+"category": "кактуси",
+"sortOrder": 3050,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
@@ -410,6 +429,9 @@
       "inventory": "МК-0012",
       "title": "Горщик ліпний",
 
+"category": "кактуси",
+"sortOrder": 3060,
+
       "type": "Горщик",
       "type_wikidata": "Q168729",
 
@@ -444,6 +466,9 @@
       "id": "exp-0013",
       "inventory": "МК-0013",
       "title": "Горщик ліпний",
+
+"category": "кактуси",
+"sortOrder": 3070,
 
       "type": "Горщик",
       "type_wikidata": "Q168729",
