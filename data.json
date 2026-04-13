@@ -75,7 +75,7 @@
       "description": "Ліпний горщик з характерним орнаментом...",
 
       "2D": ["assets/photos/Coin_Scale_Low.jpg", "assets/photos/Coin_Obverse.jpg", "assets/photos/Coin_Reverse_.jpg"],
-      "2.5D": ["assets/normalmaps/RTI-Coin.png", "assets/normalmaps/Example_RTI.png"],
+      "2.5D": ["assets/normalmaps/RTI-Coin.png", "assets/normalmaps/Example_RTI.png", "assets/normalmaps/Example_RTI-2.png"],
       "3D": "https://sketchfab.com/models/55b3c08e787a4b378c13e96a15879a8f/embed",
       "3D-II": "assets/models/Coin2-2.glb",
       "4D": "assets/animations/die-casting-process-1f2d594d.gif",
