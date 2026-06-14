@@ -3,7 +3,7 @@
 Це простий гайд для **не програмістів**.  
 Ви зможете самостійно наповнювати цифрову колекцію та оновлювати сайт.
 
-[![Download](https://img.shields.io/badge/Download-Template-blue?style=for-the-badge)](посилання)
+[![Download](https://img.shields.io/badge/Download-Template-blue?style=for-the-badge)](https://github.com/StSonya/museum-collection/releases/latest)
 
 ---
 
