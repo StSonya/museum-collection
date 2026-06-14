@@ -164,19 +164,19 @@ museum-collection/
 ```
 Collection/
 ├── 01-archaeology/
-│   ├── Arh-31853/                 ← Папка експоната
+│   ├── arh-31853/                 ← Папка експоната
 │   │   ├── photos/
-│   │   │   ├── Arh-31853_01.jpg
-│   │   │   ├── Arh-31853_02.jpg
-│   │   │   └── Arh-31853_03.jpg
+│   │   │   ├── arh-31853_01.jpg
+│   │   │   ├── arh-31853_02.jpg
+│   │   │   └── arh-31853_03.jpg
 │   │   ├── normalmaps/
-│   │   │   └── Arh-31853_normal.png
+│   │   │   └── arh-31853_normal.png
 │   │   ├── models/
-│   │   │   └── Arh-31853.glb
+│   │   │   └── arh-31853.glb
 │   │   └── animations/
 │   │       └── (якщо є)
 │   │
-│   └── Arh-31854/
+│   └── arh-31854/
 │       └── ...
 │
 ├── 02-numismatics/               ← Окрема папка для нумізматики
