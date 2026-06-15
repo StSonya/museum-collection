@@ -26,15 +26,19 @@
 
 ```
 museum-collection/
-├── index.html
-├── data.json
-├── LICENSE
-├── README.md
+├── index.html        ← головна сторінка експозиції (українська версія)
+├── data.json         ← всі дані експонатів (генерується з Excel)
+├── LICENSE           ← обрана ліцензія
+├── README.md         ← файл з інструкціями (опційно)
 └── assets/
-    ├── photos/       ← звичайні фото експонатів (.jpg) - 2D
-    ├── normalmaps/   ← карти нормалей (.png) - 2.5D
-    ├── models/       ← 3D-моделі (.glb) - 3D
-    └── animations/   ← GIF-анімації (.gif) - 4D
+    ├── css/                   ← власні стилі сайту
+    └── style.css
+    ├── js/                    ← власні JavaScript-скрипти
+    └── main.js
+    ├── photos/       ← звичайні фото експонатів (.jpg) - для вкладки - 2D
+    ├── normalmaps/   ← карти нормалей (.png) - для вкладки - 2.5D
+    ├── models/       ← 3D-моделі (.glb) - для вкладки 3D-II
+    └── animations/   ← GIF-анімації (.gif) - для вкладки - 4D
 
 
 
